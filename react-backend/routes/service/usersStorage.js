@@ -14,12 +14,14 @@ class UsersStorage {
     this.data = Array.isArray(this.data) ? this.data : [];
   }
 
-  find() {
-    // if (id) {
-    //   return this.data.find((item) => item.id === id); 
-    // } else {
-    //   return this.data;
-    // }
+  find(id, email, password) {
+    if (id) {
+      return this.data.find((item) => item.id === id); 
+    } else if (email && password) {
+      return this.data.find((item) => item.email === email && item.password === password);
+    } else {
+      return this.data;
+    }
 
     return this.data;
   }
@@ -39,22 +41,23 @@ class UsersStorage {
   }
 
   update(id, data) {
-    const {name, tags} = data;
-    const toDoIndex = this.data.findIndex((obj) => obj.id === id);
+    const {name, email, password} = data;
+    const userIndex = this.data.findIndex((obj) => obj.id === id);
 
-    if (toDoIndex === -1) {
+    if (userIndex === -1) {
       return null;
     }
-    const {name: nameCurrent, tags: tagsCurrent} = this.data[toDoIndex];
+    const {name: nameCurrent, email: emailCurrent, password: passwordCurrent} = this.data[userIndex];
 
-    this.data[toDoIndex] = {
-      ...this.data[toDoIndex],
+    this.data[userIndex] = {
+      ...this.data[userIndex],
       name: name || nameCurrent,
-      tags: tags || tagsCurrent
+      email: email || emailCurrent,
+      password: password || passwordCurrent
     };
 
     updateDB(this.data);
-    return this.data[toDoIndex];
+    return this.data[userIndex];
   }
 }
 

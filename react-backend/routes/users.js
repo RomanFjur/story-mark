@@ -7,8 +7,6 @@ const IdGenerator = require('../utils.js');
 
 /* GET users listing. */
 router.get('/', (req, res) => {
-  // res.send('respond with a resource');
-  // const {userId} = req.params;
   const users = usersStorage.find();
   if (users) {
     res.send(users);
@@ -29,8 +27,8 @@ router.get(`/:id`, (req, res) => {
 
 router.put(`/:id`, (req, res) => {
   const {userId} = req.params;
-  const {name} = req.body;
-  usersStorage.update(userId, {name});
+  const {name, email, password} = req.body;
+  usersStorage.update(userId, {name, email, password});
   res.send(200);
 });
 
