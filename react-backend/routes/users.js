@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const userStorage = require('./storage/usersStorage.js');
+const userStorage = require('./usersStorage.js');
 
 const usersStorage = new userStorage();
 const IdGenerator = require('../utils.js');

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const userStorage = require('./storage/usersStorage.js');
+const userStorage = require('./usersStorage.js');
 
 const usersStorage = new userStorage();
 const IdGenerator = require('../utils.js');
@@ -16,7 +16,8 @@ router.get(`/login`, (req, res) => {
 });
 
 router.post(`/register`, (req, res) => {
-  const {name, email, password, id = IdGenerator.getNewId()} = req.body;
+  const {name, email, password} = req.body;
+  const id = IdGenerator.getNewId();
   const user = usersStorage.save({name, email, password, id});
   res.send(user);
 });
