@@ -1,6 +1,6 @@
-var express = require('express');
-var router = express.Router();
-const postStorage = require('./postsStorage.js');
+const express = require('express');
+const router = express.Router();
+const postStorage = require('../service/postsStorage.js');
 
 const postsStorage = new postStorage();
 const IdGenerator = require('../utils.js');
@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
   res.send(posts);
 });
 
-router.get('/:id', (req, res) => { // поменять на userId (/posts/byuserid/:id)
+router.get('/byuserid/:userId', (req, res) => {
   const {userId} = req.params;
   const posts = postsStorage.find(userId);
   if (posts) {

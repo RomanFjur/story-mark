@@ -1,8 +1,60 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import {
+  Switch,
+  Redirect,
+  Route,
+  Link,
+  useRouteMatch,
+  useParams,
+  withRouter
+} from "react-router-dom";
 
 class App extends React.Component {
+  render() {
+    const { history } = this.props;
+
+    return (
+        <div>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/users">Users</Link>
+            </li>
+            <li>
+              <Link to="/auth">Auth</Link>
+            </li>
+          </ul>
+
+          <Switch>
+            <Route history={history} path="/users" component={Users} />
+            <Route history={history} path="/auth" component={Auth} />
+            <Route history={history} path="/" component={Home} />
+            <Redirect from='/' to='auth/register'/>
+          </Switch>
+        </div>
+    );
+  }
+}
+
+function Home() {
+  return <h2>Home</h2>;
+}
+
+// const User = (props) => {
+//   const user = users.get(parseInt(props.match.params.userId, 3));
+//   if (!user) {
+//     return <div>Sorry, but the user was not found</div>
+//   }
+//   return (
+//     <div>
+//       <h1>{user.username} (#{user.userId})</h1>
+//     </div>
+//   );
+// }
+
+class Users extends React.Component {
   state = {users: []}
 
   componentDidMount() {
@@ -13,28 +65,49 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App">
-        <h1>Users</h1>
+      <div>
+        <h2>Users</h2>
         {this.state.users.map(user =>
-          <div key={user.id}>{user.username}</div>
+          <div key={user.userId}>{user.username}</div>
         )}
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
       </div>
     );
   }
 }
 
-export default App;
+function Auth() {
+  let match = useRouteMatch();
+
+  return (
+    <div>
+      <h2>Auth</h2>
+      <ul>
+        <li>
+          <Link to={`${match.url}/login`}>Login</Link>
+        </li>
+        <li>
+          <Link to={`${match.url}/register`}>
+            Register
+          </Link>
+        </li>
+      </ul>
+
+      <Switch>
+        <Route path={`${match.path}/:authtypeId`}>
+          <AuthType />
+        </Route>
+        <Route path={match.path}>
+          <h3>Please select sign in or registration.</h3>
+        </Route>
+      </Switch>
+    </div>
+  );
+}
+
+function AuthType() {
+  let { authtypeId } = useParams();
+  return <h3>Requested topic ID: {authtypeId}</h3>;
+}
+
+export default withRouter(App);
+
