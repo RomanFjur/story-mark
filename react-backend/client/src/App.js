@@ -31,7 +31,6 @@ class App extends React.Component {
             <Route history={history} path="/users" component={Users} />
             <Route history={history} path="/auth" component={Auth} />
             <Route history={history} path="/" component={Home} />
-            <Redirect from='/' to='auth/register'/>
           </Switch>
         </div>
     );
@@ -41,18 +40,6 @@ class App extends React.Component {
 function Home() {
   return <h2>Home</h2>;
 }
-
-// const User = (props) => {
-//   const user = users.get(parseInt(props.match.params.userId, 3));
-//   if (!user) {
-//     return <div>Sorry, but the user was not found</div>
-//   }
-//   return (
-//     <div>
-//       <h1>{user.username} (#{user.userId})</h1>
-//     </div>
-//   );
-// }
 
 class Users extends React.Component {
   state = {users: []}
