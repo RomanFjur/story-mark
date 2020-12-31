@@ -8,6 +8,17 @@ import {
   useParams,
   withRouter
 } from "react-router-dom";
+import {connect} from 'react-redux';
+import * as actions from './actions';
+import LoginForm from './Containers/Login-form/Login-form';
+
+// const mapStateToProps = (state) => {
+//     return {
+//         counter: state
+//     }
+// }
+
+// export default connect(mapStateToProps, actions)(Counter);
 
 class App extends React.Component {
   render() {
@@ -16,9 +27,6 @@ class App extends React.Component {
     return (
         <div>
           <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
             <li>
               <Link to="/users">Users</Link>
             </li>
@@ -30,15 +38,11 @@ class App extends React.Component {
           <Switch>
             <Route history={history} path="/users" component={Users} />
             <Route history={history} path="/auth" component={Auth} />
-            <Route history={history} path="/" component={Home} />
+            <Redirect to='/auth/login'/>
           </Switch>
         </div>
     );
   }
-}
-
-function Home() {
-  return <h2>Home</h2>;
 }
 
 class Users extends React.Component {
@@ -70,30 +74,23 @@ function Auth() {
       <h2>Auth</h2>
       <ul>
         <li>
-          <Link to={`${match.url}/login`}>Login</Link>
+          <Link to={`${match.url}/login`}>Login-Form</Link>
         </li>
         <li>
           <Link to={`${match.url}/register`}>
-            Register
+            Register-Form
           </Link>
         </li>
       </ul>
 
       <Switch>
-        <Route path={`${match.path}/:authtypeId`}>
-          <AuthType />
-        </Route>
-        <Route path={match.path}>
+        <Route path={`${match.path}/login`} component={LoginForm} />
+        <Route path={`${match.path}/register`}>
           <h3>Please select sign in or registration.</h3>
         </Route>
       </Switch>
     </div>
   );
-}
-
-function AuthType() {
-  let { authtypeId } = useParams();
-  return <h3>Requested topic ID: {authtypeId}</h3>;
 }
 
 export default withRouter(App);
