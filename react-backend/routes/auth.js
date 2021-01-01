@@ -5,7 +5,7 @@ const userStorage = require('../service/usersStorage.js');
 const usersStorage = new userStorage();
 const IdGenerator = require('../utils.js');
 
-router.get(`/login`, (req, res) => {
+router.post(`/login`, (req, res) => {
   const {email, password} = req.body;
   const user = usersStorage.find(email, password);
   if (user) {

@@ -8,7 +8,6 @@ import App from './App';
 import reducer from './Store/reducer';
 
 const store = createStore(reducer, applyMiddleware(thunk));
-console.log(store.getState());
 
 ReactDOM.render(
   <BrowserRouter>

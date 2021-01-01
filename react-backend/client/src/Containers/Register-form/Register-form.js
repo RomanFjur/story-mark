@@ -64,6 +64,10 @@ const RegisterForm = ({post}) => {
             error={formik.errors.password}
             touched={formik.touched.password}
           />
+          <div>
+            <div><span></span></div>
+            <p>I agree with our Privacy Policy</p>
+          </div>
           <Button type="submit">Sign In</Button>
           <Button type="reset">Cancel</Button>
         </form>
@@ -72,16 +76,10 @@ const RegisterForm = ({post}) => {
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    values: state
-  }
-} 
-
 const mapDispatchToProps = (dispatch) => {
   return {
     post: (value) => dispatch({type: 'POST', value})
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RegisterForm);
+export default connect(null, mapDispatchToProps)(RegisterForm);

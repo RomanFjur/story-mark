@@ -1,3 +1,6 @@
+const jwt = require('jsonwebtoken');
+const secret = 'shhhhh';
+
 class RequestError {
   constructor(statusCode, message, data) {
     this.statusCode = statusCode; // Статус-код не равный 200 (404, 500 и тд)
@@ -22,9 +25,7 @@ export default class HTTPClient {
         if (newUrl.match(regUserId)) {
 
           const urlParams = newUrl.match(regUserId);
-          
           let mappedUrlParams = urlParams.map(str => str.replace(':', ''));
-
           if (typeof data != 'object') {
             newUrl = newUrl.replace(regUserId, data);
             data = undefined;
@@ -36,22 +37,22 @@ export default class HTTPClient {
                 }
               }
             };
-            // 1. Пройтись по mappedUrlParams (1 проход)
-            // 2. Достать по ключу значение из Data
-            // 3. Заменить по ключу в строке newUrl на значение
           }
         }
 
         const response = await fetch(newUrl, {
           method,
           headers: {
-			      'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            Accept: 'application/json'
 		      },
           body: JSON.stringify(data)
         });
         if (response.ok) {
           const json = await response.json();
-          return (`{${json.id}}.{${json.email}}.{${json.password}}`);
+          const token = jwt.sign(json, secret);
+          const decoded = jwt.verify(token, secret);
+          return (token);
         } else {
           throw new RequestError(response.status, `${response.status}`, response.bodyUsed);
         }
