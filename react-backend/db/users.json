@@ -1,10 +1,1 @@
-[{
-  	"userId": 1,
-  	"username": "samsepi0l"
-  }, {
-  	"userId": 2,
-  	"username": "D0loresH4ze"
-  }, {
-  	"userId": 3,
-  	"username": "Raman"
-	}]
+[{"name":"testName","email":"test@mail.ru","password":"test","id":"z0yqbna10f"},{"name":"roman","email":"roman@mail.ru","password":"12345","id":"3wzqsxqvoc"}]

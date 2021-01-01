@@ -1,0 +1,1 @@
+export const post = (value) => ({type: "POST", value});

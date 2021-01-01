@@ -3,14 +3,19 @@ import {
   Switch,
   Redirect,
   Route,
-  Link,
-  useRouteMatch,
-  useParams,
   withRouter
 } from "react-router-dom";
-import {connect} from 'react-redux';
-import * as actions from './actions';
+
 import LoginForm from './Containers/Login-form/Login-form';
+import RegisterForm from './Containers/Register-form/Register-form';
+
+// import HTTPClient from './Services/api.js';
+// const client = new HTTPClient('http://localhost:3000');
+
+// const endpointGetToDos = client.endpoint('GET', '/users');
+// const endpointCreateToDo = client.endpoint('POST', '/login');
+// const endpointUpdateToDo = client.endpoint('PUT', '/users/:userId');
+// const endpointDeleteToDo = client.endpoint('DELETE', '/users/:userId');
 
 // const mapStateToProps = (state) => {
 //     return {
@@ -23,22 +28,13 @@ import LoginForm from './Containers/Login-form/Login-form';
 class App extends React.Component {
   render() {
     const { history } = this.props;
-
     return (
         <div>
-          <ul>
-            <li>
-              <Link to="/users">Users</Link>
-            </li>
-            <li>
-              <Link to="/auth">Auth</Link>
-            </li>
-          </ul>
-
           <Switch>
             <Route history={history} path="/users" component={Users} />
-            <Route history={history} path="/auth" component={Auth} />
-            <Redirect to='/auth/login'/>
+            <Route history={history} path="/auth/register" component={RegisterForm} />
+            <Route history={history} path="/auth/login" component={LoginForm} />
+            <Redirect to='/auth/register'/>
           </Switch>
         </div>
     );
@@ -64,33 +60,6 @@ class Users extends React.Component {
       </div>
     );
   }
-}
-
-function Auth() {
-  let match = useRouteMatch();
-
-  return (
-    <div>
-      <h2>Auth</h2>
-      <ul>
-        <li>
-          <Link to={`${match.url}/login`}>Login-Form</Link>
-        </li>
-        <li>
-          <Link to={`${match.url}/register`}>
-            Register-Form
-          </Link>
-        </li>
-      </ul>
-
-      <Switch>
-        <Route path={`${match.path}/login`} component={LoginForm} />
-        <Route path={`${match.path}/register`}>
-          <h3>Please select sign in or registration.</h3>
-        </Route>
-      </Switch>
-    </div>
-  );
 }
 
 export default withRouter(App);
