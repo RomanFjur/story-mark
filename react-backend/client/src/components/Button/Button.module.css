@@ -1,0 +1,27 @@
+.button {
+  margin-bottom: 8px;
+  width: 150px;
+  height: 40px;
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 500;
+  border: none;
+  border-radius: 50px;
+}
+
+.button:hover {
+  cursor: pointer;
+}
+
+.submit {
+  composes: button;
+  color: #ffffff;
+  background-color: #0f64db;
+}
+
+.reset {
+  composes: button;
+  color: #848484;
+  background-color: #ebebeb;
+  box-shadow: 0 3px 6px rgb(0, 0, 0, 0.16);
+}

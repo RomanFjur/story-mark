@@ -15,10 +15,8 @@ export default class HTTPClient {
   }
 
   endpoint(method, path, options) {
-
     return async (data = undefined) => {
       let newUrl = this.baseUrl + path;
-
       try {
         const regUserId = /:[a-z]{1,}/gi;
 
@@ -39,7 +37,6 @@ export default class HTTPClient {
             };
           }
         }
-
         const response = await fetch(newUrl, {
           method,
           headers: {
@@ -49,14 +46,13 @@ export default class HTTPClient {
           body: JSON.stringify(data)
         });
         if (response.ok) {
-          const json = await response.json();
+          const json = response.json();
           const token = jwt.sign(json, secret);
-          const decoded = jwt.verify(token, secret);
-          return (token);
+          const user = jwt.verify(token, secret);
+          return ({token, user});
         } else {
           throw new RequestError(response.status, `${response.status}`, response.bodyUsed);
         }
-
       } catch (error) {
         console.log(error.message);
       }

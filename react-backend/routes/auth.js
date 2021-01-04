@@ -6,8 +6,8 @@ const usersStorage = new userStorage();
 const IdGenerator = require('../utils.js');
 
 router.post(`/login`, (req, res) => {
-  const {email, password} = req.body;
-  const user = usersStorage.find(email, password);
+  const {id, email, password} = req.body;
+  const user = usersStorage.find(id, email, password);
   if (user) {
     res.send(user);
   } else {
@@ -19,7 +19,7 @@ router.post(`/register`, (req, res) => {
   const {name, email, password} = req.body;
   const id = IdGenerator.getNewId();
   const user = usersStorage.save({name, email, password, id});
-  res.send(user);
+  res.send(200);
 });
 
 module.exports = router;

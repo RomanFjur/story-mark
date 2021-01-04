@@ -15,7 +15,7 @@ class UsersStorage {
     this.data = Array.isArray(this.data) ? this.data : [];
   }
 
-  find(id, email, password) {
+  find(id = undefined, email, password) {
     if (id) {
       return this.data.find((item) => item.id === id); 
     } else if (email && password) {
@@ -23,7 +23,6 @@ class UsersStorage {
     } else {
       return this.data;
     }
-
     return this.data;
   }
 

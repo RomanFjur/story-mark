@@ -1,0 +1,41 @@
+.label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  text-align: start;
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 500;
+  color: #333333;
+}
+
+.label:last-of-type {
+  margin-bottom: 11px;
+}
+
+.input {
+  width: 300px;
+  height: 40px;
+  margin-top: 4px;
+  padding-left: 19px;
+  font-size: 16px;
+  line-height: 19px;
+  font-weight: 500;
+  color: #333333;
+  border: none;
+  border-radius: 50px;
+  background-color: #f5f9ff;
+}
+
+.inputError {
+  composes: input;
+  box-shadow: 0 0 1px 1px #e36767;
+}
+
+.textError {
+  margin-left: 19px;
+  font-size: 11px;
+  line-height: 14px;
+  font-weight: 500;
+  color: #e36767;
+}

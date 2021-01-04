@@ -1,11 +1,19 @@
+// Import libraries
 import React from 'react';
+import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 import {Formik} from 'formik';
-import FormTitle from '../../Components/Form-title/Form-title';
-import Input from '../../Components/Input/Input';
-import Button from '../../Components/Button/Button';
 import * as Yup from 'yup';
 
-const LoginForm = () => {
+// Import Components
+import FormTitle from '../../components/Form-title/Form-title';
+import Input from '../../components/Input/Input';
+import Button from '../../components/Button/Button';
+
+// Import styles
+import styles from './Login-form.module.css';
+
+const LoginForm = ({login}) => {
   return (
   <Formik
     initialValues = {{
@@ -20,13 +28,13 @@ const LoginForm = () => {
     })}
     onSubmit = {(values, {setSubmitting}) => {
     setTimeout(() => {
-      alert(JSON.stringify(values, null, 2));
       setSubmitting(false);
+      login(values);
     }, 400);
     }}
   >
     {formik => (
-      <form onSubmit={formik.handleSubmit}>
+      <form onSubmit={formik.handleSubmit} className={styles.form}>
         <FormTitle 
           title="What a story Mark?"
           desc="Login to tell someone your story. Talk with world..."
@@ -47,6 +55,7 @@ const LoginForm = () => {
           error={formik.errors.password}
           touched={formik.touched.password}
         />
+        <Link to='/auth/register' className={styles.link}>Not registered yet? Register here</Link>
         <Button type="submit">Submit</Button>
       </form>
     )}
@@ -54,5 +63,17 @@ const LoginForm = () => {
   );
 }
 
-export default LoginForm;
+const mapStateToProps = (state) => {
+  return {
+    user: state
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    login: (value) => dispatch({type: 'LOGIN', value})
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
 
