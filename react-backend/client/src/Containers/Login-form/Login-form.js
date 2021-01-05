@@ -2,18 +2,18 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {Formik} from 'formik';
+import {Formik, Field, Form, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
+import {registration, login} from '../../store/actions'
 
 // Import Components
 import FormTitle from '../../components/Form-title/Form-title';
-import Input from '../../components/Input/Input';
 import Button from '../../components/Button/Button';
 
 // Import styles
 import styles from './Login-form.module.css';
 
-const LoginForm = ({login}) => {
+const LoginForm = ({register, login, user}) => {
   return (
   <Formik
     initialValues = {{
@@ -27,38 +27,29 @@ const LoginForm = ({login}) => {
         .required('Required')
     })}
     onSubmit = {(values, {setSubmitting}) => {
-    setTimeout(() => {
       setSubmitting(false);
-      login(values);
-    }, 400);
+      registration(values);
+      login();
+      this.props.history.push(`/users`);
     }}
   >
-    {formik => (
-      <form onSubmit={formik.handleSubmit} className={styles.form}>
-        <FormTitle 
-          title="What a story Mark?"
-          desc="Login to tell someone your story. Talk with world..."
-        />
-        <Input
-          title="Email"
-          type="email"
-          id="email"
-          fieldProps={formik.getFieldProps('email')}
-          error={formik.errors.email}
-          touched={formik.touched.email}
-        />
-        <Input
-          title="Password"
-          type="text"
-          id="password"
-          fieldProps={formik.getFieldProps('password')}
-          error={formik.errors.password}
-          touched={formik.touched.password}
-        />
-        <Link to='/auth/register' className={styles.link}>Not registered yet? Register here</Link>
-        <Button type="submit">Submit</Button>
-      </form>
-    )}
+    <Form className={styles.form}>
+      <FormTitle 
+        title="What a story Mark?"
+        desc="Login to tell someone your story. Talk with world..."
+        className={styles.title}
+      />
+      <div className={styles.formBlock}>
+        <label htmlFor="email" className={styles.label}>Email</label>
+        <Field name="email" type="email" className={styles.input} />
+        <ErrorMessage name="email"></ErrorMessage>
+        <label  htmlFor="password" className={styles.label}>Password</label>
+        <Field name="password" type="password" className={styles.input} />
+        <ErrorMessage name="password"></ErrorMessage>
+      </div>
+      <Link to='/auth/register' className={styles.link}>Not registered yet? Register here</Link>
+      <Button type="submit">Submit</Button> 
+    </Form>
   </Formik>
   );
 }
@@ -71,7 +62,12 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    login: (value) => dispatch({type: 'LOGIN', value})
+    registration: (value) => {
+      dispatch(registration(value));
+    },
+    login: () => {
+      dispatch(login());
+    }
   }
 }
 

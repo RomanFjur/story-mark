@@ -1,6 +1,3 @@
-const jwt = require('jsonwebtoken');
-const secret = 'shhhhh';
-
 class RequestError {
   constructor(statusCode, message, data) {
     this.statusCode = statusCode; // Статус-код не равный 200 (404, 500 и тд)
@@ -41,15 +38,17 @@ export default class HTTPClient {
           method,
           headers: {
             'Content-Type': 'application/json',
-            Accept: 'application/json'
+            Accept: 'application/json',
 		      },
           body: JSON.stringify(data)
         });
         if (response.ok) {
-          const json = response.json();
-          const token = jwt.sign(json, secret);
-          const user = jwt.verify(token, secret);
-          return ({token, user});
+          const contentType = response.headers.get("content-type");
+          if (contentType === 'text/html; charset=utf-8') {
+            return await response.text();
+          } else {
+            return await response.json();
+          }
         } else {
           throw new RequestError(response.status, `${response.status}`, response.bodyUsed);
         }
