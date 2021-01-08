@@ -1,25 +1,26 @@
 const initialState = {
     loading: false,
-    token: localStorage.getItem('token') || '',
+    token: localStorage.getItem('token') || undefined,
     user: [],
+    users: [],
     error: null
 };
 
 const reducer = (state = initialState, action) => {
     switch (action.type){
-        case 'ADD_USER_STARTED':
+        case 'GET_TOKEN_STARTED':
             return {
                 ...state,
                 loading: true
             };
-        case 'ADD_USER_SUCCESS':
+        case 'GET_TOKEN_SUCCESS':
             return {
                 ...state,
                 loading: false,
                 error: null,
                 token: action.payload
             };
-        case 'ADD_USER_FAILURE':
+        case 'FAILURE':
             return {
                 ...state,
                 loading: false,
@@ -30,9 +31,21 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 error: null,
-                user: [...state.user, action.payload]
+                user: [action.payload]
             };
-        case 'LOGIN_USER_FAILURE':
+        case 'GET_USERS_STARTED':
+            return {
+                ...state,
+                loading: true
+            };
+        case 'GET_USERS_SUCCESS':
+            return {
+                ...state,
+                loading: false,
+                error: null,
+                users: action.payload
+            };
+        case 'GET_USERS_FAILURE':
             return {
                 ...state,
                 loading: false,

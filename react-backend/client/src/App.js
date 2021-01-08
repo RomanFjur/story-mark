@@ -6,27 +6,26 @@ import {
   Route,
   withRouter
 } from "react-router-dom";
+import {connect} from 'react-redux';
 
 // Import Containers
 import LoginForm from './containers/Login-form/Login-form';
 import RegisterForm from './containers/Register-form/Register-form';
+import UsersPage from './containers/Users-page/Users-page';
+import PrivateRoute from './components/Private-route/Private-route';
 
 // Import styles
 import styles from './App.module.css';
 
 class App extends React.Component {
-  redirectionHandler = (puth) => {
-    this.props.history.replace(puth);
-  }
-
   render() {
-    const { history } = this.props;
+    const { history, dispatch } = this.props;
     return (
       <div className={styles.body}>
         <Switch>
-          <Route history={history} path="/users" component={Users} />
+          <PrivateRoute component={UsersPage} token={this.props.user.token} path="/users" history={history}/>
           <Route exact history={history} path="/auth/register" component={RegisterForm}/>
-          <Route exact history={history} path="/auth/login" component={LoginForm} />
+          <Route exact history={history} path="/auth/login" component={LoginForm} dispatch={dispatch}/>
           <Redirect to='/auth/register'/>
         </Switch>
       </div>
@@ -34,9 +33,11 @@ class App extends React.Component {
   }
 }
 
-class Users extends React.Component {
-  
+const mapStateToProps = (state) => {
+  return {
+    user: state
+  }
 }
 
-export default withRouter(App);
+export default connect(mapStateToProps)(withRouter(App));
 

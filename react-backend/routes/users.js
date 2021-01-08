@@ -24,6 +24,16 @@ router.get(`/:userId`, (req, res) => {
   }
 });
 
+router.get('/users/:userId/posts', (req, res) => {
+  const {userId} = req.params;
+  const posts = postsStorage.find(userId);
+  if (posts) {
+    res.send(posts);
+  } else {
+    res.send('Вы ещё не рассказали ни одной истории');
+  }
+});
+
 router.put(`/:userId`, (req, res) => {
   const {userId} = req.params;
   const {name, email, password} = req.body;

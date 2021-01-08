@@ -15,21 +15,8 @@ import styles from './Register-form.module.css';
 
 // Create Container
 class RegisterForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      checked: false
-    }
-  }
-
-  changeCheckHandler = (check) => {
-    this.setState({
-      checked: !check
-    })
-  }
-
   redirectToLoginHandler = () => {
-    this.props.history.push('/auth/login');
+    this.props.history.push('/users');
   }
 
   render() {
@@ -39,56 +26,64 @@ class RegisterForm extends React.Component {
           name: '',
           email: '',
           password: '',
-          repeatPassword: ''
+          repeatPassword: '',
+          checkbox: false
         }}
         validationSchema = {Yup.object({
           name: Yup.string()
             .max(15, 'Must be 15 characters or less')
             .required('Required'),
-          email: Yup.string().email('Incorrect value. Should be email').required('Required'),
+          email: Yup.string()
+            .email('Incorrect value. Should be email')
+            .required('Required'),
           password: Yup.string()
             .max(20, 'Must be 20 characters or less')
             .required('Required'),
           repeatPassword: Yup.string()
             .max(20, 'Must be 20 characters or less')
-            .required('Required'),
+            .oneOf([Yup.ref('password'), null], 'Passwords must match')
+            .required('Repeat password is required'),
+        }).shape({
+          checkbox: Yup.bool().oneOf([true], 'Accept Privacy Policy is required')
         })}
         onSubmit = {(values, {setSubmitting}) => {
           setSubmitting(false);
           this.props.registration(values);
-          this.redirectToLoginHandler('/auth/login');
+          this.redirectToLoginHandler();
         }}
       > 
-        <Form className={styles.form}>
-          <FormTitle 
-            title="One more step to make history"
-            desc="Mark uses our app for more than 20 times per day! Be like Mark"
-            className={styles.title}
-          />
-          <div className={styles.formBlock}>
-            <label htmlFor="name" className={styles.label}>Name</label>
-            <Field name="name" type="text" className={styles.input} />
-            <ErrorMessage name="name"></ErrorMessage>
-            <label htmlFor="email" className={styles.label}>Email</label>
-            <Field name="email" type="email" className={styles.input} />
-            <ErrorMessage name="email"></ErrorMessage>
-            <label  htmlFor="password" className={styles.label}>Password</label>
-            <Field name="password" type="password" className={styles.input} />
-            <ErrorMessage name="password"></ErrorMessage>
-            <label htmlFor="repeatPassword" className={styles.label}>Repeat password</label>
-            <Field name="repeatPassword" type="password" className={styles.input} />
-            <ErrorMessage name="repeatPassword"></ErrorMessage>
-          </div>
-          <div className={styles.privacyBlock} onClick={()=>this.changeCheckHandler(this.state.checked)} tabIndex='0'>
-            <div className={styles.privacyCheckbox}>{this.state.checked && <span className={styles.checked}></span>}</div>
-            <p className={styles.desc}>I agree with our Privacy Policy</p>
-          </div>
-          {this.state.checked 
-            ? <Button type="submit">Sign In</Button> 
-            : <div className={styles.disBlock}><span className={styles.disSpan}>Sign In</span></div>
-          }
-          <Button type="reset">Cancel</Button>
-        </Form> 
+        {formik => {
+          return (
+            <Form noValidate className={styles.form}>
+              <FormTitle 
+                title="One more step to make history"
+                desc="Mark uses our app for more than 20 times per day! Be like Mark"
+                className={styles.title}
+              />
+              <div className={styles.formBlock}>
+                <label htmlFor="name" className={styles.label}>Name</label>
+                <Field name="name" type="text" className={styles.input} />
+                <ErrorMessage name="name"></ErrorMessage>
+                <label htmlFor="email" className={styles.label}>Email</label>
+                <Field name="email" type="email" className={styles.input} />
+                <ErrorMessage name="email"></ErrorMessage>
+                <label htmlFor="password" className={styles.label}>Password</label>
+                <Field name="password" type="password" className={styles.input} />
+                <ErrorMessage name="password"></ErrorMessage>
+                <label htmlFor="repeatPassword" className={styles.label}>Repeat password</label>
+                <Field name="repeatPassword" type="password" className={styles.input} />
+                <ErrorMessage name="repeatPassword"></ErrorMessage>
+                <div className={styles.privacyBlock}>
+                  <Field name="checkbox" type="checkbox" className={styles.privacyCheckbox} />
+                  <label htmlFor="checkbox" className={styles.desc}>I agree with our Privacy Policy</label>
+                  <ErrorMessage name="checkbox" component="div"/>
+                </div>
+                <Button type="submit" disabled={!(formik.dirty && formik.isValid)} >Sign In</Button>
+                <Button type="reset">Cancel</Button>
+              </div>
+            </Form>
+          )
+        }} 
       </Formik>
     );
   }

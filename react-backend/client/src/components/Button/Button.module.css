@@ -25,3 +25,9 @@
   background-color: #ebebeb;
   box-shadow: 0 3px 6px rgb(0, 0, 0, 0.16);
 }
+
+.disButton {
+  composes: button;
+  color: #fff;
+  background-color: rgba(15, 100, 219, 0.5);
+}

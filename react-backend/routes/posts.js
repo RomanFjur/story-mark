@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
   res.send(posts);
 });
 
-router.get('/byuserid/:userId', (req, res) => {
+router.get('/users/:userId/posts', (req, res) => {
   const {userId} = req.params;
   const posts = postsStorage.find(userId);
   if (posts) {

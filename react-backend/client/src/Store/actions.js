@@ -1,46 +1,70 @@
-import HTTPClient from '../services/api.js';
+// export const registration = (user) => {
+//   return async (dispatch, getState) => {
+//     dispatch(getTokenStarted());
+//     try {
+//       const createdToken = await endpointCreateUser(user);
+//       localStorage.setItem("token", createdToken.token);
+//       dispatch(getTokenSuccess(createdToken.token));
+//       const success = await endpointLoginAsUser(getState());
+//       dispatch(loginUserSuccess(success));
+//       return;
+//     } catch (error) {
+//       dispatch(failure(error.message));
+//       return;
+//     }
+//   };
+// };
 
-const client = new HTTPClient('http://localhost:3000');
-const endpointCreateUser = client.endpoint('POST', '/auth/register');
-const endpointLoginAsUser = client.endpoint('POST', '/auth/login');
+// export const findUser = (user) => {
+//   return async (dispatch, getState) => {
+//     dispatch(getTokenStarted());
+//     try {
+//       const success = await endpointLoginAsUser(user);
+//       localStorage.setItem("token", success.token);
+//       dispatch(getTokenSuccess(success.token));
+//       const auth = await endpointLoginAsUser(getState());
+//       dispatch(loginUserSuccess(auth));
+//       const users = await endpointLoadUsers();
+//       dispatch(getUsersSuccess(users));
+//       console.log(success, auth, users);
+//       return;
+//     } catch (error) {
+//       dispatch(failure(error.message));
+//       return;
+//     }
+//   };
+// }
 
-export const registration = (user) => {
-  return (dispatch) => {
-    dispatch(addUserStarted());
-    endpointCreateUser(user)
-    .then(res => {
-      localStorage.setItem("token", res);
-      dispatch(addUserSuccess(res));
-    })
-    .catch(err => {
-      dispatch(addUserFailure(err.message));
-    });
-  };
-};
+// export const loadUsers = () => {
+//   return async (dispatch, getState) => {
+//     dispatch(getUsersStarted());
+//     try {
+//       const success = await endpointLoadUsers();
+//       console.log(success);
+//       dispatch(getUsersSuccess(success));
+//       return;
+//     } catch (error) {
+//       dispatch(getUsersFailure(error.message));
+//       return;
+//     }
+//   };
+// }
+const getToken = (values) => ({
+  type: "GET_TOKEN",
+  payload: values
+})
 
-export const login = () => {
-  return (dispatch, getState) => {
-    endpointLoginAsUser(getState())
-    .then(res => {
-      dispatch(loginUserSuccess(res));
-    })
-    .catch(err => {
-      dispatch(loginUserFailure(err.message));
-    });
-  };
-}
-
-const addUserStarted = () => ({
-  type: "ADD_USER_STARTED"
+const getTokenStarted = () => ({
+  type: "GET_TOKEN_STARTED"
 });
 
-const addUserSuccess = (token) => ({
-  type: "ADD_USER_SUCCESS",
+const getTokenSuccess = (token) => ({
+  type: "GET_TOKEN_SUCCESS",
   payload: token
 });
 
-const addUserFailure = (error) => ({
-  type: "ADD_USER_FAILURE",
+const failure = (error) => ({
+  type: "FAILURE",
   payload: {
     error
   }
@@ -53,8 +77,17 @@ const loginUserSuccess = (user) => ({
   }
 });
 
-const loginUserFailure = (error) => ({
-  type: "LOGIN_USER_FAILURE",
+const getUsersStarted = () => ({
+  type: "GET_USERS_STARTED"
+});
+
+const getUsersSuccess = (users) => ({
+  type: "GET_USERS_SUCCESS",
+  payload: users
+});
+
+const getUsersFailure = (error) => ({
+  type: "GET_USERS_FAILURE",
   payload: {
     error
   }

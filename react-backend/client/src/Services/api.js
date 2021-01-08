@@ -43,12 +43,8 @@ export default class HTTPClient {
           body: JSON.stringify(data)
         });
         if (response.ok) {
-          const contentType = response.headers.get("content-type");
-          if (contentType === 'text/html; charset=utf-8') {
-            return await response.text();
-          } else {
-            return await response.json();
-          }
+          const json = response.json();
+          return await json;
         } else {
           throw new RequestError(response.status, `${response.status}`, response.bodyUsed);
         }

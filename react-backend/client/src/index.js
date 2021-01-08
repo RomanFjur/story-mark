@@ -3,11 +3,17 @@ import ReactDOM from 'react-dom';
 import {BrowserRouter} from "react-router-dom";
 import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
-import thunk from 'redux-thunk';
 import reducer from './store/reducer';
+import createSagaMiddleware from 'redux-saga';
+import watcherSaga from './sagas/api-saga';
 import App from './App';
 
-const store = createStore(reducer, applyMiddleware(thunk));
+const sagaMiddleware = createSagaMiddleware();
+const store = createStore(
+  reducer,
+  applyMiddleware(sagaMiddleware)
+);
+sagaMiddleware.run(watcherSaga);
 
 ReactDOM.render(
   <BrowserRouter>
