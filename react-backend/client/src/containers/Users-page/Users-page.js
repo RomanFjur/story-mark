@@ -8,11 +8,23 @@ class UsersPage extends React.Component {
     this.props.getUsers();
   }
 
+  renderUserPage = (userId) => {
+    console.log(userId);
+    this.props.history.push(`/users/${userId}`);
+  }
+
   render () {
     return (
       <div>
         {this.props.state.users.map((user, index) => {
-          return <UserBlock key={user.id} name={user.name} email={user.email} />
+          return (
+            <UserBlock 
+              key={user.id} 
+              name={user.name} 
+              email={user.email} 
+              onClick={() => {this.renderUserPage(user.id)}}
+            />
+          );
         })}
       </div>
     );

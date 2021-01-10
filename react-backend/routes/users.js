@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
   }
 });
 
-router.get(`/:userId`, (req, res) => {
+router.get(`/users/:userId`, (req, res) => {
   const {userId} = req.params;
   const user = usersStorage.find(userId);
   if (user) {

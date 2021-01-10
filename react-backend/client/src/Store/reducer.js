@@ -3,6 +3,7 @@ const initialState = {
     token: localStorage.getItem('token') || undefined,
     user: [],
     users: [],
+    posts: [],
     error: null
 };
 
@@ -50,6 +51,20 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 error: action.payload.error
+            };
+        case 'LOAD_USER_PAGE_SUCCESS':
+            return {
+                ...state,
+                loading: false,
+                error: null,
+                user:[action.payload]
+            };
+        case 'LOAD_USER_POSTS_SUCCESS':
+            return {
+                ...state,
+                loading: false,
+                error: null,
+                posts:action.payload
             };
         default:
             return state;

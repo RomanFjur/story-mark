@@ -101,3 +101,20 @@ const getUsersFailure = (error) => ({
     error
   }
 });
+
+const loadUserPage = (userId) => ({
+  type: "LOAD_USER_PAGE",
+  payload: userId
+});
+
+const loadUserPageSuccess = (userPage) => ({
+  type: "LOAD_USER_PAGE_SUCCESS",
+  payload: {
+    ...userPage
+  }
+});
+
+const loadUserPostsSuccess = (posts) => ({
+  type: "LOAD_USER_POSTS_SUCCESS",
+  payload: posts
+});

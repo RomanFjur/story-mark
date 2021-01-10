@@ -12,6 +12,7 @@ import {connect} from 'react-redux';
 import LoginForm from './containers/Login-form/Login-form';
 import RegisterForm from './containers/Register-form/Register-form';
 import UsersPage from './containers/Users-page/Users-page';
+import UserPage from './containers/User-page/User-page';
 import PrivateRoute from './components/Private-route/Private-route';
 
 // Import styles
@@ -24,6 +25,7 @@ class App extends React.Component {
       <div className={styles.body}>
         <Switch>
           <PrivateRoute component={UsersPage} token={this.props.user.token} path="/users" history={history}/>
+          <PrivateRoute component={UserPage} token={this.props.user.token} path="/users/:userId" history={history}/>
           <Route exact history={history} path="/auth/register" component={RegisterForm}/>
           <Route exact history={history} path="/auth/login" component={LoginForm}/>
           <Redirect to='/auth/register'/>
