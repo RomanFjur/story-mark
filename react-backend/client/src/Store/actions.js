@@ -52,6 +52,11 @@
 const getToken = (values) => ({
   type: "GET_TOKEN",
   payload: values
+});
+
+const registration = (values) => ({
+  type: "ADD_USER",
+  payload: values
 })
 
 const getTokenStarted = () => ({
@@ -75,6 +80,10 @@ const loginUserSuccess = (user) => ({
   payload: {
     ...user
   }
+});
+
+const getUsers = () => ({
+  type: "GET_USERS"
 });
 
 const getUsersStarted = () => ({

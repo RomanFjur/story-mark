@@ -29,7 +29,9 @@ class LoginForm extends React.Component {
         onSubmit = {(values, {setSubmitting}) => {
           setSubmitting(false);
           this.props.getToken(values);
-          this.props.history.push("/users");
+          setTimeout(() => {
+            this.props.history.push('/users');
+          }, 100);
         }}
       >
         <Form className={styles.form}>

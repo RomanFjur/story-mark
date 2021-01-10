@@ -15,10 +15,6 @@ import styles from './Register-form.module.css';
 
 // Create Container
 class RegisterForm extends React.Component {
-  redirectToLoginHandler = () => {
-    this.props.history.push('/users');
-  }
-
   render() {
     return (
       <Formik
@@ -49,7 +45,9 @@ class RegisterForm extends React.Component {
         onSubmit = {(values, {setSubmitting}) => {
           setSubmitting(false);
           this.props.registration(values);
-          this.redirectToLoginHandler();
+          setTimeout(() => {
+            this.props.history.push('/users');
+          }, 100);
         }}
       > 
         {formik => {
@@ -91,8 +89,8 @@ class RegisterForm extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    registration: (value) => {
-      dispatch(registration(value));
+    registration: (values) => {
+      dispatch({type: "ADD_USER", payload: values});
     }
   }
 }

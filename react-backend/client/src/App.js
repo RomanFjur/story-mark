@@ -19,13 +19,13 @@ import styles from './App.module.css';
 
 class App extends React.Component {
   render() {
-    const { history, dispatch } = this.props;
+    const { history } = this.props;
     return (
       <div className={styles.body}>
         <Switch>
           <PrivateRoute component={UsersPage} token={this.props.user.token} path="/users" history={history}/>
           <Route exact history={history} path="/auth/register" component={RegisterForm}/>
-          <Route exact history={history} path="/auth/login" component={LoginForm} dispatch={dispatch}/>
+          <Route exact history={history} path="/auth/login" component={LoginForm}/>
           <Redirect to='/auth/register'/>
         </Switch>
       </div>

@@ -4,8 +4,11 @@ import {connect} from 'react-redux';
 import UserBlock from '../../components/User-block/User-block';
 
 class UsersPage extends React.Component {
+  componentDidMount() {
+    this.props.getUsers();
+  }
+
   render () {
-    console.log(this.props.state.users);
     return (
       <div>
         {this.props.state.users.map((user, index) => {
@@ -22,4 +25,12 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(UsersPage);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getUsers: () => {
+      dispatch({type: "GET_USERS"});
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UsersPage);
