@@ -118,3 +118,15 @@ const loadUserPostsSuccess = (posts) => ({
   type: "LOAD_USER_POSTS_SUCCESS",
   payload: posts
 });
+
+const addStatus = (status) => ({
+  type: "ADD_STATUS",
+  payload: status
+});
+
+const addStatusSuccess = (user) => ({
+  type: "ADD_STATUS_SUCCESS",
+  payload: {
+    ...user
+  }
+});

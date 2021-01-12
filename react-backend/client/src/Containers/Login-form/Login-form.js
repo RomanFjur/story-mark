@@ -28,9 +28,9 @@ class LoginForm extends React.Component {
         })}
         onSubmit = {(values, {setSubmitting}) => {
           setSubmitting(false);
-          this.props.getToken(values);
+          this.props.getToken(values); // две коллбек функции
           setTimeout(() => {
-            this.props.history.push('/users');
+            this.props.history.push(`/users`); // библиотека History
           }, 100);
         }}
       >
@@ -38,7 +38,9 @@ class LoginForm extends React.Component {
           <FormTitle 
             title="What a story Mark?"
             desc="Login to tell someone your story. Talk with world..."
-            className={styles.title}
+            titleStyle="formsTitle"
+            descStyle="descTitle"
+            styling="loginFormTitle"
           />
           <div className={styles.formBlock}>
             <label htmlFor="email" className={styles.label}>Email</label>
@@ -49,16 +51,10 @@ class LoginForm extends React.Component {
             <ErrorMessage name="password"></ErrorMessage>
           </div>
           <Link to='/auth/register' className={styles.link}>Not registered yet? Register here</Link>
-          <Button type="submit">Submit</Button> 
+          <Button type="submit" styling="submit">Submit</Button> 
         </Form>
       </Formik>
     );
-  }
-}
-
-const mapStateToProps = (state) => {
-  return {
-    user: state
   }
 }
 
@@ -70,5 +66,5 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+export default connect(null, mapDispatchToProps)(LoginForm);
 

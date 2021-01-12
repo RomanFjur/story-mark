@@ -31,7 +31,8 @@ router.post(`/login`, (req, res) => {
 router.post(`/register`, (req, res) => {
   const {name, email, password} = req.body;
   const id = IdGenerator.getNewId();
-  const user = usersStorage.save({name, email, password, id});
+  const status = "Status isn't update yet";
+  const user = usersStorage.save({name, email, password, id, status});
   res.send({token: jwt.sign(user, secret)});
 });
 

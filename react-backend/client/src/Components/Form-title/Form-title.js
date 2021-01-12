@@ -1,11 +1,14 @@
 import React from 'react';
 import styles from './Form-title.module.css';
 
-const FormTitle = ({title, desc}) => {
+import MainTitle from '../Main-title/Main-title';
+import AdvancedTitle from '../Advanced-title/Advanced-title';
+
+const FormTitle = ({title, desc, titleStyle, descStyle, styling}) => {
   return (
-    <div>
-      <h3 className={styles.title}>{title}</h3>
-      <p className={styles.desc}>{desc}</p>
+    <div className={styles[styling]}>
+      <MainTitle styling={titleStyle}>{title}</MainTitle>
+      <AdvancedTitle styling={descStyle}>{desc}</AdvancedTitle>
     </div>
   );
 }

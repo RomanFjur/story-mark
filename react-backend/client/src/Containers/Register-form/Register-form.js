@@ -56,7 +56,9 @@ class RegisterForm extends React.Component {
               <FormTitle 
                 title="One more step to make history"
                 desc="Mark uses our app for more than 20 times per day! Be like Mark"
-                className={styles.title}
+                titleStyle="formsTitle"
+                descStyle="descTitle"
+                styling="registerFormTitle"
               />
               <div className={styles.formBlock}>
                 <label htmlFor="name" className={styles.label}>Name</label>
@@ -76,8 +78,8 @@ class RegisterForm extends React.Component {
                   <label htmlFor="checkbox" className={styles.desc}>I agree with our Privacy Policy</label>
                   <ErrorMessage name="checkbox" component="div"/>
                 </div>
-                <Button type="submit" disabled={!(formik.dirty && formik.isValid)} >Sign In</Button>
-                <Button type="reset">Cancel</Button>
+                <Button type="submit" styling="submit" disabled={!(formik.dirty && formik.isValid)} >Sign In</Button>
+                <Button type="reset" styling="reset">Cancel</Button>
               </div>
             </Form>
           )

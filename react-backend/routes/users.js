@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const userStorage = require('../service/usersStorage.js');
+const postStorage = require('../service/postsStorage.js');
 
 const usersStorage = new userStorage();
+const postsStorage = new postStorage();
 const IdGenerator = require('../utils.js');
 
 router.get('/', (req, res) => {
@@ -14,9 +16,9 @@ router.get('/', (req, res) => {
   }
 });
 
-router.get(`/users/:userId`, (req, res) => {
-  const {userId} = req.params;
-  const user = usersStorage.find(userId);
+router.get(`/:id`, (req, res) => {
+  const {id} = req.params;
+  const user = usersStorage.find(id);
   if (user) {
     res.send(user);
   } else {
@@ -24,9 +26,9 @@ router.get(`/users/:userId`, (req, res) => {
   }
 });
 
-router.get('/users/:userId/posts', (req, res) => {
-  const {userId} = req.params;
-  const posts = postsStorage.find(userId);
+router.get('/:id/posts', (req, res) => {
+  const {id} = req.params;
+  const posts = postsStorage.find(id);
   if (posts) {
     res.send(posts);
   } else {
@@ -34,11 +36,16 @@ router.get('/users/:userId/posts', (req, res) => {
   }
 });
 
-router.put(`/:userId`, (req, res) => {
-  const {userId} = req.params;
-  const {name, email, password} = req.body;
-  usersStorage.update(userId, {name, email, password});
-  res.send(200);
+router.put(`/:id`, (req, res) => {
+  const {id} = req.params;
+  const {name, email, password, status} = req.body;
+  usersStorage.update(id, {name, email, password, status});
+  const user = usersStorage.find(id);
+  if (user) {
+    res.send(user);
+  } else {
+    res.status(404).send();
+  }
 });
 
 module.exports = router;

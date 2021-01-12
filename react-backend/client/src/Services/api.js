@@ -16,9 +16,7 @@ export default class HTTPClient {
       let newUrl = this.baseUrl + path;
       try {
         const regUserId = /:[a-z]{1,}/gi;
-
         if (newUrl.match(regUserId)) {
-
           const urlParams = newUrl.match(regUserId);
           let mappedUrlParams = urlParams.map(str => str.replace(':', ''));
           if (typeof data != 'object') {

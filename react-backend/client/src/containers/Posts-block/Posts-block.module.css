@@ -1,0 +1,29 @@
+.posts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.postsBlock {
+  margin-top: 17px;
+}
+
+.post {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  align-items: center;
+  width: 549px;
+  padding-top: 35px;
+  padding-bottom: 35px;
+  list-style: none;
+  background-color: #ffffff;
+  border-radius: 8px;
+  border: none;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+}
+
+.postImage {
+  width: 485px;
+  height: 226px;
+}

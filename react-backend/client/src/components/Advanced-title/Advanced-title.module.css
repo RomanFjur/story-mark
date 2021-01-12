@@ -1,0 +1,16 @@
+.formsDesc {
+  margin-bottom: 41px;
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: 300;
+  text-align: center;
+  color: #777777;
+}
+
+.userPageSecondTitle {
+  composes: formsDesc;
+  margin-bottom: 11px;
+  font-weight: bold;
+  color: #333333;
+  background-color: none;
+}

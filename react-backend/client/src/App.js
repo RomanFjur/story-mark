@@ -24,8 +24,8 @@ class App extends React.Component {
     return (
       <div className={styles.body}>
         <Switch>
-          <PrivateRoute component={UsersPage} token={this.props.user.token} path="/users" history={history}/>
-          <PrivateRoute component={UserPage} token={this.props.user.token} path="/users/:userId" history={history}/>
+          <PrivateRoute component={UserPage} token={this.props.token} path="/users/:id" history={history}/>
+          <PrivateRoute component={UsersPage} token={this.props.token} path="/users" history={history}/>
           <Route exact history={history} path="/auth/register" component={RegisterForm}/>
           <Route exact history={history} path="/auth/login" component={LoginForm}/>
           <Redirect to='/auth/register'/>
@@ -37,7 +37,7 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state
+    token: state.token
   }
 }
 

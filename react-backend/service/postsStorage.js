@@ -16,6 +16,7 @@ class PostsStorage {
   }
 
   find(id) {
+    console.log(id);
     if (id) {
       return this.data.find((item) => item.id === id); 
     } else {

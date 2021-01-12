@@ -31,3 +31,32 @@
   color: #fff;
   background-color: rgba(15, 100, 219, 0.5);
 }
+
+.status {
+  composes: button;
+  color: #ffffff;
+  width: 40px;
+  height: 40px;
+  background-color: #0f64db;
+  border-radius: 4px;
+  background-image: url('../../assets/img/ok.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: auto;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+}
+
+.logout {
+  composes: button;
+  width: 50px;
+  height: 50px;
+  margin-right: 8px;
+  color: #333333;
+  border-radius: 4px;
+  background-color: #ffffff;
+  background-image: url('../../assets/img/exit.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: auto;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+}

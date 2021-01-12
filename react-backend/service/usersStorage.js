@@ -41,19 +41,20 @@ class UsersStorage {
   }
 
   update(id, data) {
-    const {name, email, password} = data;
+    const {name, email, password, status} = data;
     const userIndex = this.data.findIndex((obj) => obj.id === id);
 
     if (userIndex === -1) {
       return null;
     }
-    const {name: nameCurrent, email: emailCurrent, password: passwordCurrent} = this.data[userIndex];
+    const {name: nameCurrent, email: emailCurrent, password: passwordCurrent, status: statusCurrent} = this.data[userIndex];
 
     this.data[userIndex] = {
       ...this.data[userIndex],
       name: name || nameCurrent,
       email: email || emailCurrent,
-      password: password || passwordCurrent
+      password: password || passwordCurrent,
+      status: status || statusCurrent
     };
 
     updateDB(this.data);
