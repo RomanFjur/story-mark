@@ -21,8 +21,10 @@ class UsersStorage {
     } else if (email && password) {
       return this.data.find((item) => item.email === email && item.password === password);
     } else {
+      console.log(this.data);
       return this.data;
     }
+    console.log(this.data);
     return this.data;
   }
 

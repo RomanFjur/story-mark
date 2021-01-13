@@ -16,28 +16,26 @@ class PostsStorage {
   }
 
   find(id) {
-    console.log(id);
     if (id) {
       return this.data.find((item) => item.id === id); 
     } else {
       return this.data;
     }
-
-    return this.data;
   }
 
-  save(data) {
+  save(id, data) {
     try {
-      if (Array.isArray(data)) {
-        this.data = data;
+      if (this.data.find((item) => item.id === id)) {
+        let posts = this.data.find((item) => item.id === id);
+        posts.posts = [...posts.posts, data];
       } else {
-        this.data = [...this.data, data];
+        this.data = [...this.data, {id: id, posts: [data]}];
       }
       updateDB(this.data);
     } catch (err) {
       console.error(err);
     }
-    return data;
+    return this.data.find((item) => item.id === id);
   }
 }
 

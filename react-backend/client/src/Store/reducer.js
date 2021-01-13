@@ -1,9 +1,10 @@
 const initialState = {
     loading: false,
     token: localStorage.getItem('token') || undefined,
-    user: '',
+    loginedUser: '',
+    watchingUser: '',
     users: [],
-    posts: '',
+    posts: [],
     error: null
 };
 
@@ -32,7 +33,7 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 error: null,
-                user: action.payload
+                loginedUser: action.payload
             };
         case 'GET_USERS_STARTED':
             return {
@@ -42,7 +43,6 @@ const reducer = (state = initialState, action) => {
         case 'GET_USERS_SUCCESS':
             return {
                 ...state,
-                loading: false,
                 error: null,
                 users: action.payload,
             };
@@ -57,21 +57,35 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 error: null,
-                user:action.payload
+                watchingUser: action.payload
             };
         case 'LOAD_USER_POSTS_SUCCESS':
             return {
                 ...state,
                 loading: false,
                 error: null,
-                posts:action.payload.post
+                posts: action.payload.posts
             };
         case 'ADD_STATUS_SUCCESS':
             return {
                 ...state,
                 loading: false,
                 error: null,
-                user:action.payload
+                loginedUser: action.payload
+            };
+        case 'LOGOUT_SUCCESS':
+            return {
+                ...state,
+                loading: false,
+                error: null,
+                token: undefined
+            };
+        case 'ADD_POST_SUCCESS':
+            return {
+                ...state,
+                loading: false,
+                error: null,
+                posts: action.payload.posts
             };
         default:
             return state;

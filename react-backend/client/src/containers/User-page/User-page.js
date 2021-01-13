@@ -23,46 +23,49 @@ class UserPage extends React.Component {
   }
 
   changeStatusValue = (status) => {
-    console.log(this.state.value, status);
     this.setState({
       value: status
     })
   }
 
   componentDidMount() {
-    const user = this.props.match.params.id;
-    this.props.loadUserPage(user);
+    const userId = this.props.match.params.id;
+    this.props.loadUserPage(userId);
   }
 
   render() {
     return (
       <div className={styles.body}>
         <div className={styles.profileBlock}>
-          <Button styling="logout" type="submit"></Button>
+          <Button styling="logout" type="reset" onClick={() => {this.props.logout()}}></Button>
           <UserBlock
             name={this.props.user.name} 
             email={this.props.user.email} 
-            onClick={() => {this.props.history.push(`/users/${this.props.user.id}`)}}
-          />
+            onClick={() => {this.props.history.push(`/users/${this.props.user.id}`)}}>
+          </UserBlock>
         </div>
         <div className={styles.wrapper}>
           <div className={styles.userBlock}>
             <div className={styles.userImage}><img src="" alt=''/></div>
-            <MainTitle styling="userPageTitle">{this.props.user.name}</MainTitle>
-            <p>{this.props.user.status}</p>
-            <div className={styles.userStatus}>
-              <input 
-                className={styles.input} 
-                type="text" 
-                placeholder="WoHoo! I'm on the mountains!" 
-                onChange={(e) => {this.changeStatusValue(e.target.value)}}
-              />
-              <Button 
-                styling="status" 
-                type="submit" 
-                onClick={() => {this.props.addStatus({id: this.props.user.id, status: this.state.value})}} 
-              />
-            </div>
+            <MainTitle styling="userPageTitle">{this.props.currentUser.name}</MainTitle>
+            <p className={styles.actualStatus}>{this.props.currentUser.id === this.props.user.id
+                ? this.props.user.status
+                : this.props.currentUser.status}</p>
+            {this.props.currentUser.id === this.props.user.id 
+              && <div className={styles.userStatus}>
+                  <input 
+                    className={styles.input} 
+                    type="text" 
+                    placeholder="WoHoo! I'm on the mountains!" 
+                    onChange={(e) => {this.changeStatusValue(e.target.value)}}
+                  />
+                  <Button 
+                    styling="status" 
+                    type="submit" 
+                    onClick={() => {this.props.addStatus({id: this.props.user.id, status: this.state.value})}} 
+                  />
+                </div>
+            }
           </div>
           <div>
             <AdvancedTitle styling="userPageSecondTitle">Gallery</AdvancedTitle>
@@ -72,7 +75,7 @@ class UserPage extends React.Component {
               <li className={styles.galleryItem}></li>
             </ul>
           </div>
-          <PostsBlock />
+          <PostsBlock user={this.props.user} currentUser={this.props.currentUser}/>
         </div>
       </div>
     );
@@ -81,8 +84,8 @@ class UserPage extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user,
-    posts: state.posts
+    user: state.loginedUser,
+    currentUser: state.watchingUser
   }
 }
 
@@ -93,6 +96,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     addStatus: (object) => {
       dispatch({type: "ADD_STATUS", payload: object});
+    },
+    logout: () => {
+      dispatch({type: "LOGOUT"});
     }
   }
 }

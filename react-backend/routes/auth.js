@@ -6,6 +6,7 @@ const secret = 'shhhhh';
 
 const usersStorage = new userStorage();
 const IdGenerator = require('../utils.js');
+const AvatarGenerator = require('../avatar.js');
 
 router.post(`/login`, (req, res) => {
   const {id, email, password, token} = req.body;
@@ -32,7 +33,9 @@ router.post(`/register`, (req, res) => {
   const {name, email, password} = req.body;
   const id = IdGenerator.getNewId();
   const status = "Status isn't update yet";
-  const user = usersStorage.save({name, email, password, id, status});
+  const avatar = AvatarGenerator.getNewAvatar();
+  const user = usersStorage.save({name, email, password, id, status, avatar});
+  console.log(user);
   res.send({token: jwt.sign(user, secret)});
 });
 

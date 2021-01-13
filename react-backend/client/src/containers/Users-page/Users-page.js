@@ -18,15 +18,15 @@ class UsersPage extends React.Component {
     return (
       <div className={styles.usersBlock}>
         {this.props.users.map((user, index) => {
-          return (
-            <UserBlock 
-              key={user.id} 
-              name={user.name} 
-              email={user.email} 
-              onClick={() => {this.renderUserPage(user.id)}}
-            />
-          );
-        })}
+            return (
+              <UserBlock 
+                key={user.id} 
+                name={user.name} 
+                email={user.email}
+                onClick={() => {this.renderUserPage(user.id)}}
+              />
+            );
+          })}
       </div>
     );
   }

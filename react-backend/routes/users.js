@@ -5,7 +5,6 @@ const postStorage = require('../service/postsStorage.js');
 
 const usersStorage = new userStorage();
 const postsStorage = new postStorage();
-const IdGenerator = require('../utils.js');
 
 router.get('/', (req, res) => {
   const users = usersStorage.find();
@@ -32,7 +31,7 @@ router.get('/:id/posts', (req, res) => {
   if (posts) {
     res.send(posts);
   } else {
-    res.send('Вы ещё не рассказали ни одной истории');
+    res.send({posts: [{title: 'Вы ещё не рассказали ни одной истории'}]});
   }
 });
 

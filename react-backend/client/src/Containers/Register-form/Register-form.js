@@ -27,7 +27,7 @@ class RegisterForm extends React.Component {
         }}
         validationSchema = {Yup.object({
           name: Yup.string()
-            .max(15, 'Must be 15 characters or less')
+            .max(20, 'Must be 20 characters or less')
             .required('Required'),
           email: Yup.string()
             .email('Incorrect value. Should be email')

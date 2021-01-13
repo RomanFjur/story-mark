@@ -130,3 +130,23 @@ const addStatusSuccess = (user) => ({
     ...user
   }
 });
+
+const logout = () => ({
+  type: "LOGOUT"
+});
+
+const logoutSuccess = () => ({
+  type: "LOGOUT_SUCCESS"
+});
+
+const addPost = (post) => ({
+  type: "ADD_POST",
+  payload: post
+});
+
+const addPostSuccess = (post) => ({
+  type: "ADD_POST_SUCCESS",
+  payload: {
+    ...post
+  }
+});

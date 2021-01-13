@@ -10,19 +10,9 @@ router.get('/', (req, res) => {
   res.send(posts);
 });
 
-router.get('/users/:userId/posts', (req, res) => {
-  const {userId} = req.params;
-  const posts = postsStorage.find(userId);
-  if (posts) {
-    res.send(posts);
-  } else {
-    res.send('Вы ещё не рассказали ни одной истории');
-  }
-});
-
 router.post('/', (req, res) => {
-  const {title, description, image} = req.body; // id user-a через получается токен
-  const post = postsStorage.save({title, description, image});
+  const {id, title, image, hashtag} = req.body;
+  const post = postsStorage.save(id, {title, image, hashtag});
   res.send(post);
 });
 
