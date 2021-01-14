@@ -21,11 +21,8 @@ class UsersStorage {
     } else if (email && password) {
       return this.data.find((item) => item.email === email && item.password === password);
     } else {
-      console.log(this.data);
       return this.data;
     }
-    console.log(this.data);
-    return this.data;
   }
 
   save(data) {
@@ -49,6 +46,7 @@ class UsersStorage {
     if (userIndex === -1) {
       return null;
     }
+
     const {name: nameCurrent, email: emailCurrent, password: passwordCurrent, status: statusCurrent} = this.data[userIndex];
 
     this.data[userIndex] = {

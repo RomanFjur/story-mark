@@ -13,6 +13,10 @@ import Button from '../../components/Button/Button';
 import styles from './Login-form.module.css';
 
 class LoginForm extends React.Component {
+  redirectToHandler = () => {
+    this.props.history.push(`/users`); 
+  }
+
   render () {
     return (
       <Formik
@@ -28,10 +32,11 @@ class LoginForm extends React.Component {
         })}
         onSubmit = {(values, {setSubmitting}) => {
           setSubmitting(false);
-          this.props.getToken(values); // две коллбек функции
+          this.props.login(values); // две коллбек функции
           setTimeout(() => {
-            this.props.history.push(`/users`); // библиотека History
-          }, 100);
+            this.props.history.push(`/users`); 
+            // библиотека History
+          }, 500);
         }}
       >
         <Form className={styles.form}>
@@ -60,8 +65,8 @@ class LoginForm extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getToken: (values) => {
-      dispatch({type: "GET_TOKEN", payload: values});
+    login: (values) => {
+      dispatch({type: "LOGIN", payload: values});
     }
   }
 }

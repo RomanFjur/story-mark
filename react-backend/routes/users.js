@@ -38,8 +38,8 @@ router.get('/:id/posts', (req, res) => {
 router.put(`/:id`, (req, res) => {
   const {id} = req.params;
   const {name, email, password, status} = req.body;
-  usersStorage.update(id, {name, email, password, status});
-  const user = usersStorage.find(id);
+  const user = usersStorage.update(id, {name, email, password, status});
+  console.log(user);
   if (user) {
     res.send(user);
   } else {

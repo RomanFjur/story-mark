@@ -48,9 +48,12 @@ class UserPage extends React.Component {
           <div className={styles.userBlock}>
             <div className={styles.userImage}><img src="" alt=''/></div>
             <MainTitle styling="userPageTitle">{this.props.currentUser.name}</MainTitle>
-            <p className={styles.actualStatus}>{this.props.currentUser.id === this.props.user.id
+            <p className={styles.actualStatus}>
+              {this.props.currentUser.id === this.props.user.id
                 ? this.props.user.status
-                : this.props.currentUser.status}</p>
+                : this.props.currentUser.status
+              }
+            </p>
             {this.props.currentUser.id === this.props.user.id 
               && <div className={styles.userStatus}>
                   <input 

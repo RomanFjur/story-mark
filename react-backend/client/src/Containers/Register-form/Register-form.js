@@ -47,7 +47,7 @@ class RegisterForm extends React.Component {
           this.props.registration(values);
           setTimeout(() => {
             this.props.history.push('/users');
-          }, 100);
+          }, 500);
         }}
       > 
         {formik => {
@@ -92,7 +92,7 @@ class RegisterForm extends React.Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     registration: (values) => {
-      dispatch({type: "ADD_USER", payload: values});
+      dispatch({type: "REGISTRATION", payload: values});
     }
   }
 }

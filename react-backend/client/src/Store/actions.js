@@ -49,24 +49,21 @@
 //     }
 //   };
 // }
-const getToken = (values) => ({
-  type: "GET_TOKEN",
+
+const login = (values) => ({
+  type: "LOGIN",
   payload: values
+});
+
+const loginSuccess = (token) => ({
+  type: "LOGIN_SUCCESS",
+  payload: token
 });
 
 const registration = (values) => ({
-  type: "ADD_USER",
+  type: "REGISTRATION",
   payload: values
 })
-
-const getTokenStarted = () => ({
-  type: "GET_TOKEN_STARTED"
-});
-
-const getTokenSuccess = (token) => ({
-  type: "GET_TOKEN_SUCCESS",
-  payload: token
-});
 
 const failure = (error) => ({
   type: "FAILURE",
@@ -84,10 +81,6 @@ const loginUserSuccess = (user) => ({
 
 const getUsers = () => ({
   type: "GET_USERS"
-});
-
-const getUsersStarted = () => ({
-  type: "GET_USERS_STARTED"
 });
 
 const getUsersSuccess = (users) => ({

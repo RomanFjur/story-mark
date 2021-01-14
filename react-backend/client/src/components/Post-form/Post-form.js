@@ -49,7 +49,7 @@ class PostForm extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    id: state.user.id
+    id: state.loginedUser.id
   }
 }
 

@@ -23,7 +23,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "server": "nodemon server.js",
+    "client": "cd client && npm start",
+    "dev": "concurrently --kill-others-on-fail \"npm server\" \"npm client\""
   },
   "proxy": "http://localhost:3001",
   "eslintConfig": {
@@ -46,6 +49,7 @@
   },
   "devDependencies": {
     "path-to-regexp": "^0.1.7",
+    "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-saga": "^0.3.1",
     "redux-saga": "^1.1.3"

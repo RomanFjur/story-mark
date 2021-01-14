@@ -6,7 +6,6 @@ const secret = 'shhhhh';
 
 const usersStorage = new userStorage();
 const IdGenerator = require('../utils.js');
-const AvatarGenerator = require('../avatar.js');
 
 router.post(`/login`, (req, res) => {
   const {id, email, password, token} = req.body;
@@ -22,7 +21,7 @@ router.post(`/login`, (req, res) => {
   } else {
     const user = usersStorage.find(id, email, password);
     if (user) {
-      res.send({token: jwt.sign(user, secret)});
+      res.send({token: jwt.sign({id: user.id, email: user.email, password: user.password}, secret)});
     } else {
       res.status(403).send();
     }
@@ -33,10 +32,8 @@ router.post(`/register`, (req, res) => {
   const {name, email, password} = req.body;
   const id = IdGenerator.getNewId();
   const status = "Status isn't update yet";
-  const avatar = AvatarGenerator.getNewAvatar();
-  const user = usersStorage.save({name, email, password, id, status, avatar});
-  console.log(user);
-  res.send({token: jwt.sign(user, secret)});
+  const user = usersStorage.save({name, email, password, id, status});
+  res.send({token: jwt.sign({id: user.id, email: user.email, password: user.password}, secret)});
 });
 
 module.exports = router;
