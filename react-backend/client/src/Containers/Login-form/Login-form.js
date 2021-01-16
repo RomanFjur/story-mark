@@ -13,8 +13,10 @@ import Button from '../../components/Button/Button';
 import styles from './Login-form.module.css';
 
 class LoginForm extends React.Component {
-  redirectToHandler = () => {
-    this.props.history.push(`/users`); 
+  componentDidUpdate(prevProps) {
+    if (this.props.isLogin) {
+      this.props.history.push('/users');
+    }
   }
 
   render () {
@@ -32,11 +34,7 @@ class LoginForm extends React.Component {
         })}
         onSubmit = {(values, {setSubmitting}) => {
           setSubmitting(false);
-          this.props.login(values); // две коллбек функции
-          setTimeout(() => {
-            this.props.history.push(`/users`); 
-            // библиотека History
-          }, 500);
+          this.props.login(values);
         }}
       >
         <Form className={styles.form}>
@@ -63,6 +61,12 @@ class LoginForm extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    isLogin: state.isLogin
+  }
+}
+
 const mapDispatchToProps = (dispatch) => {
   return {
     login: (values) => {
@@ -71,5 +75,5 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(LoginForm);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
 

@@ -4,15 +4,16 @@ import AdvancedTitle from '../../components/Advanced-title/Advanced-title';
 
 import styles from './Post-block.module.css';
 
-const PostBlock = ({post}) => {
+const PostBlock = ({post = 'empty'}) => {
   return (
     <div className={styles.post}>
-      <AdvancedTitle styling="userPageSecondTitle">{post.title}</AdvancedTitle>
-      {post.title !== 'Вы ещё не рассказали ни одной истории'
+      <AdvancedTitle styling="postBlockTitle">{post.title ? post.title : 'Вы ещё не рассказали ни одной истории'}</AdvancedTitle>
+      {post.title
         && <>
-          <img src={post.image} alt='' className={styles.postImage}/>
-          <p>{post.hashtag}</p>
-        </>
+            <p>{post.description}</p>
+            <img src={post.image} alt='' className={styles.postImage}/>
+            <p>#{post.hashtag.split(/\s+|,\s+|,+/gi).join(' #')}</p>
+          </>
       }    
     </div>
   );

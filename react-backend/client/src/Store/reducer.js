@@ -4,7 +4,8 @@ const initialState = {
     watchingUser: '',
     users: [],
     posts: [],
-    error: null
+    error: null,
+    isLogin: false
 };
 
 const reducer = (state = initialState, action) => {
@@ -13,6 +14,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 error: null,
+                isLogin: true,
                 token: action.payload
             };
         case 'FAILURE':
@@ -47,7 +49,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 error: null,
-                posts: action.payload.posts
+                posts: action.payload
             };
         case 'ADD_STATUS_SUCCESS':
             return {
@@ -59,13 +61,14 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 error: null,
+                isLogin: false,
                 token: undefined
             };
         case 'ADD_POST_SUCCESS':
             return {
                 ...state,
                 error: null,
-                posts: action.payload.posts
+                posts: action.payload
             };
         default:
             return state;

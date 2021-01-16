@@ -4,7 +4,6 @@ import {Formik, Field, Form, ErrorMessage} from 'formik';
 import {connect} from 'react-redux';
 import {withRouter} from "react-router-dom";
 import * as Yup from 'yup';
-import {registration} from '../../store/actions'
 
 // Import Components
 import FormTitle from '../../components/Form-title/Form-title';
@@ -15,6 +14,12 @@ import styles from './Register-form.module.css';
 
 // Create Container
 class RegisterForm extends React.Component {
+  componentDidUpdate(prevProps) {
+    if (this.props.isLogin) {
+      this.props.history.push('/users');
+    }
+  }
+  
   render() {
     return (
       <Formik
@@ -45,9 +50,6 @@ class RegisterForm extends React.Component {
         onSubmit = {(values, {setSubmitting}) => {
           setSubmitting(false);
           this.props.registration(values);
-          setTimeout(() => {
-            this.props.history.push('/users');
-          }, 500);
         }}
       > 
         {formik => {

@@ -14,3 +14,8 @@
   color: #333333;
   background-color: none;
 }
+
+.postBlockTitle {
+  composes: userPageSecondTitle;
+  margin: 0;
+}

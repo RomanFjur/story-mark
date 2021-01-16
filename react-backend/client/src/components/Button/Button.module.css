@@ -60,3 +60,23 @@
   background-size: auto;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
 }
+
+.share {
+  composes: button;
+  color: #ffffff;
+  background-color: #0f64db;
+  align-self: center;
+}
+
+.close {
+  display: block;
+  width: 14px;
+  height: 14px;
+  border: none;
+  margin-top: -12px;
+  margin-right: 16px;
+  background-image: url('../../assets/img/close.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: auto;
+}

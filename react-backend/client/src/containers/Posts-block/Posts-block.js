@@ -18,26 +18,35 @@ class PostsBlock extends React.Component {
     }
   }
 
-  addPostHandler = (boolean) => {
+  openPostForm = () => {
     this.setState({
-      addPost: !boolean
-    })
+      addPost: true
+    });
+  } 
+
+  closePostForm = () => {
+    this.setState({
+      addPost: false
+    });
   } 
 
   render () {
     return (
       <div className={styles.posts}>
         <AdvancedTitle styling="userPageSecondTitle">Posts</AdvancedTitle>
-        {this.props.user.id === this.props.currentUser.id 
-          && <Button styling="submit" type="submit" onClick={() => {this.addPostHandler(this.state.addPost)}}>New post</Button>}
+        {this.props.user.id === this.props.currentUser.id && this.state.addPost === false
+          && <Button styling="submit" type="submit" onClick={() => {this.openPostForm()}}>New post</Button>}
         {this.state.addPost 
-          && <PostForm />}
+          && <PostForm closeHandler={this.closePostForm}/>}
         <div className={styles.postsBlock}>
-          {this.props.posts.map(post => {
-            return (
-              <PostBlock post={post}></PostBlock>
-            );
-          })}
+          {this.props.posts.length === 0
+            ? <PostBlock />
+            : this.props.posts.map(post => {
+                return (
+                  <PostBlock post={post} key={post.id}/>
+                );
+              })
+          }
         </div>
       </div>
     );

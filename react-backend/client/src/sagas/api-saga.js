@@ -88,8 +88,8 @@ function* logoutSaga() {
 
 function* addPostSaga(action) {
   try {
-    const post = yield endpointAddUserPosts(action.payload);
-    yield put({type: "ADD_POST_SUCCESS", payload: {...post}});
+    const posts = yield endpointAddUserPosts(action.payload);
+    yield put({type: "ADD_POST_SUCCESS", payload: posts});
   } catch (e) {
     yield put({type: "FAILURE", payload: {e}});
   }

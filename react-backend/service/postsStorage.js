@@ -17,25 +17,20 @@ class PostsStorage {
 
   find(id) {
     if (id) {
-      return this.data.find((item) => item.id === id); 
+      const posts = this.data.filter((item) => item.id === id);
+      return posts; 
     } else {
       return this.data;
     }
   }
 
-  save(id, data) {
+  save(data) {
     try {
-      if (this.data.find((item) => item.id === id)) {
-        let posts = this.data.find((item) => item.id === id);
-        posts.posts = [...posts.posts, data];
-      } else {
-        this.data = [...this.data, {id: id, posts: [data]}];
-      }
+      this.data = [...this.data, data];
       updateDB(this.data);
     } catch (err) {
       console.error(err);
     }
-    return this.data.find((item) => item.id === id);
   }
 }
 

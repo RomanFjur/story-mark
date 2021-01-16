@@ -137,9 +137,7 @@ const addPost = (post) => ({
   payload: post
 });
 
-const addPostSuccess = (post) => ({
+const addPostSuccess = (posts) => ({
   type: "ADD_POST_SUCCESS",
-  payload: {
-    ...post
-  }
+  payload: posts
 });

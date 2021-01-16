@@ -8,7 +8,7 @@ import * as Yup from 'yup';
 import Button from '../../components/Button/Button';
 
 // Import styles
-// import styles from './Post-form.module.css';
+import styles from './Post-form.module.css';
 
 class PostForm extends React.Component {
   render () {
@@ -17,6 +17,7 @@ class PostForm extends React.Component {
         initialValues = {{
           id: this.props.id,
           title: '',
+          description: '',
           image: '',
           hashtag: ''
         }}
@@ -29,18 +30,24 @@ class PostForm extends React.Component {
           this.props.addPost(values);
         }}
       >
-        <Form>
-          <div>
-            <label htmlFor="title">Title</label>
-            <Field name="title" type="text"/>
-            <ErrorMessage name="title"></ErrorMessage>
-            <label htmlFor="image">Image</label>
-            <Field name="image" type="file"/>
-            <ErrorMessage name="image"></ErrorMessage>
-            <label htmlFor="hashtag">Tags</label>
-            <Field name="hashtag" type="text"/>
+        <Form className={styles.postForm}>
+          <div className={styles.postFormContainer}>
+            <div className={styles.userImage}><img src="" alt=''/></div>
+            <div className={styles.postWrapper}>
+              <label htmlFor="title" className={styles.label}>Title</label>
+              <Field name="title" type="text" className={styles.input}/>
+              <ErrorMessage name="title"></ErrorMessage>
+              <label htmlFor="description" className={styles.label}>Description</label>
+              <Field name="description" type="text" className={styles.input}/>
+              <ErrorMessage name="description"></ErrorMessage>
+              <label htmlFor="image" className={styles.label}>Image</label>
+              <Field name="image" type="text" className={styles.input}/>
+              <label htmlFor="hashtag" className={styles.label}>Tags</label>
+              <Field name="hashtag" type="text" className={styles.input}/>
+            </div>
+            <Button styling="close" onClick={() => this.props.closeHandler()}></Button>
           </div>
-          <Button type="submit" styling="submit">Add Post</Button> 
+          <Button type="submit" styling="share">Share with world</Button> 
         </Form>
       </Formik>
     );

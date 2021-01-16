@@ -39,7 +39,6 @@ router.put(`/:id`, (req, res) => {
   const {id} = req.params;
   const {name, email, password, status} = req.body;
   const user = usersStorage.update(id, {name, email, password, status});
-  console.log(user);
   if (user) {
     res.send(user);
   } else {
