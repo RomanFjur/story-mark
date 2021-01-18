@@ -1,11 +1,12 @@
 import React from 'react';
 import styles from './User-block.module.css';
+import AvatarBlock from '../Avatar-block/Avatar-block';
 
-const UserBlock = ({name, email, onClick}) => {
+const UserBlock = ({name, email, avatar, onClick}) => {
   return (
     <div className={styles.userBlock} onClick={onClick}>
       <div className={styles.userName}>{name}</div>
-      <div className={styles.userAvatar}><img src='' alt=''/></div>
+      <AvatarBlock avatar={avatar}/>
     </div>
   );
 }

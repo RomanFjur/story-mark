@@ -10,9 +10,9 @@ const PostBlock = ({post = 'empty'}) => {
       <AdvancedTitle styling="postBlockTitle">{post.title ? post.title : 'Вы ещё не рассказали ни одной истории'}</AdvancedTitle>
       {post.title
         && <>
-            <p>{post.description}</p>
+            <p className={styles.postDescription}>{post.description}</p>
             <img src={post.image} alt='' className={styles.postImage}/>
-            <p>#{post.hashtag.split(/\s+|,\s+|,+/gi).join(' #')}</p>
+            <p className={styles.postTags}>#{post.hashtag.split(/\s+|,\s+|,+/gi).join(' #')}</p>
           </>
       }    
     </div>

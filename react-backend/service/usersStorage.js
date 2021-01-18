@@ -3,62 +3,62 @@ const path = require('path');
 const DB_PATH = path.join(__dirname, '../db/users.json');
 const updateDB = (data) => fs.writeFileSync(DB_PATH, JSON.stringify(data), () => {});
 
-class UsersStorage {
-  constructor() {
-    this.data = JSON.parse(fs.readFileSync(DB_PATH, (error, data) => {
-      if (error) {
-        console.log(error);
-      } else {
-        console.log(data);
-      }
-    }));
-    this.data = Array.isArray(this.data) ? this.data : [];
-  }
+// singletone
 
-  find(id = undefined, email, password) {
+let dataBase = JSON.parse(fs.readFileSync(DB_PATH, (error, data) => {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log(data);
+  }
+}));
+dataBase = Array.isArray(dataBase) ? dataBase : [];
+
+class UsersStorage {
+  static find(id, email, password) {
     if (id) {
-      return this.data.find((item) => item.id === id); 
+      return dataBase.find((item) => item.id === id); 
     } else if (email && password) {
-      return this.data.find((item) => item.email === email && item.password === password);
+      return dataBase.find((item) => item.email === email && item.password === password);
     } else {
-      return this.data;
+      return dataBase;
     }
   }
 
-  save(data) {
+  static save(data) {
     try {
       if (Array.isArray(data)) {
-        this.data = data;
+        dataBase = data;
       } else {
-        this.data = [...this.data, data];
+        dataBase = [...dataBase, data];
       }
-      updateDB(this.data);
+      updateDB(dataBase);
     } catch (err) {
       console.error(err);
     }
-    return data;
+    return dataBase;
   }
 
   update(id, data) {
     const {name, email, password, status} = data;
-    const userIndex = this.data.findIndex((obj) => obj.id === id);
+    const userIndex = dataBase.findIndex((obj) => obj.id === id);
 
     if (userIndex === -1) {
       return null;
     }
 
-    const {name: nameCurrent, email: emailCurrent, password: passwordCurrent, status: statusCurrent} = this.data[userIndex];
+    const {name: nameCurrent, email: emailCurrent, password: passwordCurrent, status: statusCurrent} = dataBase[userIndex];
 
-    this.data[userIndex] = {
-      ...this.data[userIndex],
+    dataBase[userIndex] = {
+      ...dataBase[userIndex],
       name: name || nameCurrent,
       email: email || emailCurrent,
       password: password || passwordCurrent,
       status: status || statusCurrent
     };
 
-    updateDB(this.data);
-    return this.data[userIndex];
+    updateDB(dataBase);
+    return dataBase[userIndex];
   }
 }
 

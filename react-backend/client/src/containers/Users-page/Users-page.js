@@ -3,11 +3,13 @@ import React from 'react';
 import {connect} from 'react-redux';
 import UserBlock from '../../components/User-block/User-block';
 
+// Import styles
 import styles from './Users-page.module.css';
 
 class UsersPage extends React.Component {
   componentDidMount() {
     this.props.getUsers();
+    console.log(this.props.users);
   }
 
   renderUserPage = (id) => {
@@ -15,18 +17,20 @@ class UsersPage extends React.Component {
   }
 
   render () {
+    console.log(this.props.users);
     return (
       <div className={styles.usersBlock}>
         {this.props.users.map((user, index) => {
-            return (
-              <UserBlock 
-                key={user.id} 
-                name={user.name} 
-                email={user.email}
-                onClick={() => {this.renderUserPage(user.id)}}
-              />
-            );
-          })}
+          return (
+            <UserBlock 
+              key={user.id} 
+              name={user.name} 
+              email={user.email}
+              avatar={user.avatar}
+              onClick={() => {this.renderUserPage(user.id)}}
+            />
+          );
+        })}
       </div>
     );
   }
@@ -34,8 +38,7 @@ class UsersPage extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    users: state.users,
-    state: state
+    users: state.users
   }
 }
 

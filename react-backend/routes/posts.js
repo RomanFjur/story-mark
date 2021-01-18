@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
   const {id, title, description, iamge, hashtag} = req.body;
-  postsStorage.save({id, title, description, iamge, hashtag});
+  postsStorage.save({id, title, description, image, hashtag});
   const posts = postsStorage.find(id);
   res.send(posts);
 });

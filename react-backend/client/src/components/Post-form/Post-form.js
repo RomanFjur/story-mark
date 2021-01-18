@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 
 // Import Components
 import Button from '../../components/Button/Button';
+import AvatarBlock from '../Avatar-block/Avatar-block';
 
 // Import styles
 import styles from './Post-form.module.css';
@@ -32,7 +33,7 @@ class PostForm extends React.Component {
       >
         <Form className={styles.postForm}>
           <div className={styles.postFormContainer}>
-            <div className={styles.userImage}><img src="" alt=''/></div>
+            <AvatarBlock avatar={this.props.avatar} avatarStyle={styles.userImage}/>
             <div className={styles.postWrapper}>
               <label htmlFor="title" className={styles.label}>Title</label>
               <Field name="title" type="text" className={styles.input}/>
@@ -56,7 +57,8 @@ class PostForm extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    id: state.loginedUser.id
+    id: state.loginedUser.id,
+    avatar: state.loginedUser.avatar
   }
 }
 

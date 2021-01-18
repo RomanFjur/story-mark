@@ -16,5 +16,20 @@
 
 .postImage {
   width: 485px;
-  height: 226px;
+  min-height: 226px;
+}
+
+.postDescription {
+  color: #0f64db;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  margin-bottom: 10px;
+}
+
+.postTags {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 28px;
+  margin-top: 10px;
 }
