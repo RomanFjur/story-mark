@@ -33,21 +33,21 @@ class RegisterForm extends React.Component {
         validationSchema = {
           Yup.object({
             name: Yup.string()
-              .max(20, 'Must be 20 characters or less')
-              .required('Required'),
+                      .max(20, 'Must be 20 characters or less')
+                      .required('Required'),
             email: Yup.string()
-              .email('Incorrect value. Should be email')
-              .required('Required'),
+                      .email('Incorrect value. Should be email')
+                      .required('Required'),
             password: Yup.string()
-              .max(20, 'Must be 20 characters or less')
-              .required('Required'),
+                      .max(20, 'Must be 20 characters or less')
+                      .required('Required'),
             repeatPassword: Yup.string()
-              .max(20, 'Must be 20 characters or less')
-              .oneOf([Yup.ref('password'), null], 'Passwords must match')
-              .required('Repeat password is required')
+                      .max(20, 'Must be 20 characters or less')
+                      .oneOf([Yup.ref('password'), null], 'Passwords must match')
+                      .required('Repeat password is required')
           }).shape({
             checkbox: Yup.bool()
-              .oneOf([true], 'Accept Privacy Policy is required')
+                      .oneOf([true], 'Accept Privacy Policy is required')
           })
         }
         onSubmit = {(values, {setSubmitting}) => {

@@ -12,11 +12,19 @@
   margin-bottom: 11px;
   font-weight: bold;
   color: #333333;
-  background-color: none;
 }
 
 .postBlockTitle {
   composes: userPageSecondTitle;
   margin: 0;
   margin-bottom: 10px;
+}
+
+.analyticsTitle {
+  margin: 0;
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 500;
+  color: #333333;
+  background-color: #ffffff;
 }

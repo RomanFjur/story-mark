@@ -32,7 +32,6 @@ export default class HTTPClient {
             };
           }
         }
-        console.log(data);
         const response = await fetch(newUrl, {
           method,
           headers: {
@@ -43,7 +42,6 @@ export default class HTTPClient {
         });
         if (response.ok) {
           const json = response.json();
-          console.log(await json);
           return await json;
         } else {
           throw new RequestError(response.status, `${response.status}`, response.bodyUsed);

@@ -19,6 +19,15 @@
   background-color: #0f64db;
 }
 
+.open {
+  composes: button;
+  color: #ffffff;
+  background-color: #0f64db;
+  margin: 0;
+  width: 122px;
+  height: 32px;
+}
+
 .reset {
   composes: button;
   color: #848484;
@@ -79,4 +88,19 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: auto;
+}
+
+.admin {
+  composes: button;
+  width: 93px;
+  height: 50px;
+  margin-right: 8px;
+  color: #E36767;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 19px;
+  border: 2px solid #E36767;
+  border-radius: 4px;
+  background-color: #ffffff;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
 }

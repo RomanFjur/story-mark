@@ -38,7 +38,15 @@ class UserPage extends React.Component {
     return (
       <div className={styles.body}>
         <div className={styles.profileBlock}>
-          <Button styling="logout" type="reset" onClick={() => {this.props.logout()}}></Button>
+          {this.props.user.isAdmin 
+            && <Button 
+            styling="admin" 
+            type="submit" 
+            onClick={() => {this.props.history.push(`/admin`)}}>ADMIN</Button>}
+          <Button 
+            styling="logout" 
+            type="reset" 
+            onClick={() => {this.props.logout()}} />
           <UserBlock
             name={this.props.user.name} 
             email={this.props.user.email} 
@@ -48,10 +56,14 @@ class UserPage extends React.Component {
         </div>
         <div className={styles.wrapper}>
           <div className={styles.userBlock}>
-            <AvatarBlock avatar={this.props.currentUser.avatar} avatarStyle={styles.userImage}/>
+            <AvatarBlock 
+              avatar={this.props.currentUser.avatar} 
+              avatarStyle={styles.userImage}/>
             <MainTitle styling="userPageTitle">{this.props.currentUser.name}</MainTitle>
             <p className={styles.actualStatus}>
-              {this.props.currentUser.status}
+              {this.props.currentUser.name === this.props.user.name
+                ? this.props.user.status
+                : this.props.currentUser.status}
             </p>
             {this.props.currentUser.id === this.props.user.id 
               && <div className={styles.userStatus}>

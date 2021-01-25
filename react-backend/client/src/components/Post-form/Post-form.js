@@ -23,7 +23,8 @@ class PostForm extends React.Component {
           hashtag: ''
         }}
         validationSchema = {Yup.object({
-          title: Yup.string().required('Required'),
+          title: Yup.string()
+                    .required('Required'),
           // добавить требования к изображению, если добавляется
         })}
         onSubmit = {(values, {setSubmitting}) => {
@@ -33,20 +34,44 @@ class PostForm extends React.Component {
       >
         <Form className={styles.postForm}>
           <div className={styles.postFormContainer}>
-            <AvatarBlock avatar={this.props.avatar} avatarStyle={styles.userImage}/>
+            <AvatarBlock 
+              avatar={this.props.avatar} 
+              avatarStyle={styles.userImage}/>
             <div className={styles.postWrapper}>
-              <label htmlFor="title" className={styles.label}>Title</label>
-              <Field name="title" type="text" className={styles.input}/>
-              <ErrorMessage name="title"></ErrorMessage>
-              <label htmlFor="description" className={styles.label}>Description</label>
-              <Field name="description" type="text" className={styles.input}/>
-              <ErrorMessage name="description"></ErrorMessage>
-              <label htmlFor="image" className={styles.label}>Image</label>
-              <Field name="image" type="text" className={styles.input}/>
-              <label htmlFor="hashtag" className={styles.label}>Tags</label>
-              <Field name="hashtag" type="text" className={styles.input}/>
+              <label 
+                htmlFor="title" 
+                className={styles.label}>Title</label>
+              <Field 
+                name="title" 
+                type="text" 
+                className={styles.input}/>
+              <ErrorMessage name="title" />
+              <label 
+                htmlFor="description" 
+                className={styles.label}>Description</label>
+              <Field 
+                name="description" 
+                type="text" 
+                className={styles.input}/>
+              <ErrorMessage name="description" />
+              <label 
+                htmlFor="image" 
+                className={styles.label}>Image</label>
+              <Field 
+                name="image" 
+                type="text" 
+                className={styles.input}/>
+              <label 
+                htmlFor="hashtag" 
+                className={styles.label}>Tags</label>
+              <Field 
+                name="hashtag" 
+                type="text" 
+                className={styles.input}/>
             </div>
-            <Button styling="close" onClick={() => this.props.closeHandler()}></Button>
+            <Button 
+              styling="close" 
+              onClick={() => this.props.closeHandler()} />
           </div>
           <Button type="submit" styling="share">Share with world</Button> 
         </Form>

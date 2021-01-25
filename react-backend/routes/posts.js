@@ -1,19 +1,18 @@
 const express = require('express');
 const router = express.Router();
-const postStorage = require('../service/postsStorage.js');
+const PostsStorage = require('../service/postsStorage.js');
 
-const postsStorage = new postStorage();
 const IdGenerator = require('../utils.js');
 
 router.get('/', (req, res) => {
-  const posts = postsStorage.find();
+  const posts = PostsStorage.find();
   res.send(posts);
 });
 
 router.post('/', (req, res) => {
-  const {id, title, description, iamge, hashtag} = req.body;
-  postsStorage.save({id, title, description, image, hashtag});
-  const posts = postsStorage.find(id);
+  const {id, title, description, image, hashtag} = req.body;
+  PostsStorage.save({id, title, description, image, hashtag});
+  const posts = PostsStorage.find(id);
   res.send(posts);
 });
 

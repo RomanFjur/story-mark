@@ -9,7 +9,6 @@ import styles from './Users-page.module.css';
 class UsersPage extends React.Component {
   componentDidMount() {
     this.props.getUsers();
-    console.log(this.props.users);
   }
 
   renderUserPage = (id) => {
@@ -17,10 +16,9 @@ class UsersPage extends React.Component {
   }
 
   render () {
-    console.log(this.props.users);
     return (
       <div className={styles.usersBlock}>
-        {this.props.users.map((user, index) => {
+        {Array.isArray(this.props.users) && this.props.users.map((user, index) => {
           return (
             <UserBlock 
               key={user.id} 

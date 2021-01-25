@@ -1,9 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const UsersStorage = require('../service/usersStorage.js');
-const postStorage = require('../service/postsStorage.js');
-
-const postsStorage = new postStorage();
+const PostsStorage = require('../service/postsStorage.js');
 
 router.get('/', (req, res) => {
   const users = UsersStorage.find();
@@ -26,7 +24,7 @@ router.get(`/:id`, (req, res) => {
 
 router.get('/:id/posts', (req, res) => {
   const {id} = req.params;
-  const posts = postsStorage.find(id);
+  const posts = PostsStorage.find(id);
   if (posts) {
     res.send(posts);
   } else {

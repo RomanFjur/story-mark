@@ -7,7 +7,10 @@ import styles from './Post-block.module.css';
 const PostBlock = ({post = 'empty'}) => {
   return (
     <div className={styles.post}>
-      <AdvancedTitle styling="postBlockTitle">{post.title ? post.title : 'Вы ещё не рассказали ни одной истории'}</AdvancedTitle>
+      <AdvancedTitle 
+        styling="postBlockTitle">
+        {post.title ? post.title : 'Вы ещё не рассказали ни одной истории'}
+      </AdvancedTitle>
       {post.title
         && <>
             <p className={styles.postDescription}>{post.description}</p>

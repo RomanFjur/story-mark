@@ -10,7 +10,7 @@ export default function PrivateRoute ({component: Component, token, ...rest}) {
       exact
       {...rest}
       render={props => token !== undefined
-        ? <Component {...props} {...rest} key={props.match.params.id || 'empty'}/>
+        ? <Component {...props} key={props.match.params.id || 'empty'}/>
         : <Redirect to='/auth/login' />}
     />
   )

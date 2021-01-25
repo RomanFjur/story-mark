@@ -3,31 +3,29 @@ const path = require('path');
 const DB_PATH = path.join(__dirname, '../db/posts.json');
 const updateDB = (data) => fs.writeFileSync(DB_PATH, JSON.stringify(data), () => {});
 
-class PostsStorage {
-  constructor() {
-    this.data = JSON.parse(fs.readFileSync(DB_PATH, (error, data) => {
-      if (error) {
-        console.log(error);
-      } else {
-        console.log(data);
-      }
-    }));
-    this.data = Array.isArray(this.data) ? this.data : [];
+let dataBase = JSON.parse(fs.readFileSync(DB_PATH, (error, data) => {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log(data);
   }
+}));
+dataBase = Array.isArray(dataBase) ? dataBase : [];
 
-  find(id) {
+class PostsStorage {
+  static find(id) {
     if (id) {
-      const posts = this.data.filter((item) => item.id === id);
+      const posts = dataBase.filter((item) => item.id === id);
       return posts; 
     } else {
-      return this.data;
+      return dataBase;
     }
   }
 
-  save(data) {
+  static save(data) {
     try {
-      this.data = [...this.data, data];
-      updateDB(this.data);
+      dataBase = [...dataBase, data];
+      updateDB(dataBase);
     } catch (err) {
       console.error(err);
     }

@@ -56,13 +56,10 @@ function* loadUserPageSaga(action) {
   try {
     const user = yield endpointLoginAsUser({"token": localStorage.getItem("token")});
     yield put({type: "LOGIN_USER_SUCCESS", payload: {...user}});
-    console.log(user, '1');
     const userData = yield endpointLoadUserPage(action.payload);
     yield put({type: "LOAD_USER_PAGE_SUCCESS", payload: userData});
-    console.log(userData, '2');
     const userPosts = yield endpointLoadUserPosts(action.payload);
     yield put({type: "LOAD_USER_POSTS_SUCCESS", payload: userPosts});
-    console.log(userPosts, '3');
   } catch (e) {
     yield put({type: "FAILURE", payload: {e}});
   }

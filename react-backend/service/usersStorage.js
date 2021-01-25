@@ -3,8 +3,6 @@ const path = require('path');
 const DB_PATH = path.join(__dirname, '../db/users.json');
 const updateDB = (data) => fs.writeFileSync(DB_PATH, JSON.stringify(data), () => {});
 
-// singletone
-
 let dataBase = JSON.parse(fs.readFileSync(DB_PATH, (error, data) => {
   if (error) {
     console.log(error);
@@ -39,7 +37,7 @@ class UsersStorage {
     return dataBase;
   }
 
-  update(id, data) {
+  static update(id, data) {
     const {name, email, password, status} = data;
     const userIndex = dataBase.findIndex((obj) => obj.id === id);
 

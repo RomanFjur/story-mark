@@ -35,7 +35,10 @@ class PostsBlock extends React.Component {
       <div className={styles.posts}>
         <AdvancedTitle styling="userPageSecondTitle">Posts</AdvancedTitle>
         {this.props.user.id === this.props.currentUser.id && this.state.addPost === false
-          && <Button styling="submit" type="submit" onClick={() => {this.openPostForm()}}>New post</Button>}
+          && <Button 
+              styling="submit" 
+              type="submit" 
+              onClick={() => {this.openPostForm()}}>New post</Button>}
         {this.state.addPost 
           && <PostForm closeHandler={this.closePostForm}/>}
         <div className={styles.postsBlock}>
@@ -43,7 +46,9 @@ class PostsBlock extends React.Component {
             ? <PostBlock />
             : this.props.posts.map(post => {
                 return (
-                  <PostBlock post={post} key={post.id}/>
+                  <PostBlock 
+                    post={post} 
+                    key={post.id}/>
                 );
               })
           }
