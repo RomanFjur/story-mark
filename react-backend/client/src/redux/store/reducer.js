@@ -5,7 +5,8 @@ const initialState = {
     users: [],
     posts: [],
     error: null,
-    isLogin: false
+    isLogin: false,
+    socketData: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -69,6 +70,12 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 error: null,
                 posts: action.payload
+            };
+        case 'SOCKET_EVENT':
+            return {
+                ...state,
+                error: null,
+                socketData: action.payload
             };
         default:
             return state;

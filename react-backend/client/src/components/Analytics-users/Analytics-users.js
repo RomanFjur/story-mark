@@ -4,21 +4,15 @@ import styles from './Analytics-users.module.css';
 import MainTitle from '../Main-title/Main-title';
 import AdvancedTitle from '../Advanced-title/Advanced-title';
 import moment from 'moment';
-import Chart from 'chart.js';
+import { connect } from 'react-redux';
+// import Chart from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { subscribeToData } from '../../api';
 
 // Chart.plugins.unregister(ChartDataLabels);
 
 class AnalyticsUsers extends React.Component {
-  constructor(props) {
-    super(props);
-    subscribeToData((err, users) => this.setState({
-      users
-    }));
-    this.state = {
-      users: []
-    };
+  componentDidMount() {
+    this.props.socketGetUsers();
   }
 
   chartDataGenerator = () => {
@@ -42,9 +36,9 @@ class AnalyticsUsers extends React.Component {
     };
     for (let i = 0; i < 30; i++) {
       chartData.labels.push(dateArr[i]);
-      chartData.datasets[0].data = this.state.users;
-      chartData.datasets[0].backgroundColor.push(`rgba(255, ${this.state.users[i] * 8.5}, 80, 0.2)`);
-      chartData.datasets[0].borderColor.push(`rgba(255, ${this.state.users[i] * 8.5}, 80, 1)`);
+      chartData.datasets[0].data = this.props.socketData;
+      chartData.datasets[0].backgroundColor.push(`rgba(255, ${this.props.socketData[i] * 8.5}, 80, 0.2)`);
+      chartData.datasets[0].borderColor.push(`rgba(255, ${this.props.socketData[i] * 8.5}, 80, 1)`);
     }
     return chartData;
   }
@@ -58,9 +52,6 @@ class AnalyticsUsers extends React.Component {
         yAxes: [{
           ticks: {
             beginAtZero: true
-            // callback: function(value, index, values) {
-            //     return yLabels[value];
-            // } для кастомных значений оси Y
           }
         }],
         xAxes: [{
@@ -94,4 +85,18 @@ class AnalyticsUsers extends React.Component {
   }
 }
 
-export default AnalyticsUsers;
+const mapStateToProps = (state) => {
+  return {
+    socketData: state.socketData
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    socketGetUsers: () => {
+      dispatch({type: "SOCKET_GET_USERS"});
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AnalyticsUsers);

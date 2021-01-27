@@ -9,10 +9,8 @@ const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
 const usersRouter = require('./routes/users');
 const postsRouter = require('./routes/posts');
-const adminRouter = require('./routes/admin');
 
 const app = express();
-const port = 3001;
 
 let http = require("http");
 
@@ -33,17 +31,11 @@ app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-// app.use(cors({
-//     credentials: true,
-//     origin: ["http://localhost:3000"],
-//     optionsSuccessStatus: 200
-//   }))
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/users', usersRouter);
 app.use('/posts', postsRouter);
-app.use('/admin', adminRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -58,12 +50,18 @@ function usersGenerator(start, end, number) {
   return users;
 }
 
-io.of('/admin/analytics/users').on('connection', client => {
+io.on('connection', client => {
   console.log('connected');
-  client.on('subscribeToData', interval => {
+  client.on('subscribeToUsers', interval => {
     console.log('client is subscribing to recieving data');
     setInterval(() => {
-      client.emit('users', usersGenerator(0, 30, 30));
+      client.emit('giveMeUsers', usersGenerator(0, 30, 30));
+    }, interval);
+  });
+  client.on('subscribeToPosts', interval => {
+    console.log('client is subscribing to recieving posts');
+    setInterval(() => {
+      client.emit('giveMePosts', usersGenerator(0, 3, 100));
     }, interval);
   });
 });
